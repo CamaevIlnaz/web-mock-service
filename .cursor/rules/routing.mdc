@@ -1,0 +1,24 @@
+---
+description: Routing rules
+globs:
+  - "src/**/*"
+alwaysApply: false
+---
+
+# Routing
+
+Use Atomic Router.
+
+## Rules
+
+- Do not use React Router.
+- Do not introduce another routing solution.
+- Do not generate route architecture unless explicitly requested.
+- Wait for route structure definition from the project owner.
+- Keep routing connected to Effector where appropriate.
+
+## Ownership
+
+The project owner defines the routing architecture.
+
+When route architecture is not provided, ask for clarification instead of inventing it.

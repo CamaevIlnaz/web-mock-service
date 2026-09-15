@@ -1,0 +1,78 @@
+---
+description: Feature-Sliced Design architecture rules
+globs:
+  - "src/**/*"
+alwaysApply: false
+---
+
+# Feature-Sliced Design
+
+Use Feature-Sliced Design as the frontend architecture.
+
+## Required Layers
+
+The base structure is:
+
+```txt
+src/
+  app/
+  pages/
+  widgets/
+  features/
+  entities/
+  shared/
+```
+
+## Dependency Direction
+
+Allowed dependency direction:
+
+```txt
+app
+pages
+widgets
+features
+entities
+shared
+```
+
+A layer may import only from layers below it.
+
+Allowed examples:
+
+- `features` may import from `entities` and `shared`
+- `widgets` may import from `features`, `entities`, and `shared`
+- `pages` may import from `widgets`, `features`, `entities`, and `shared`
+- `shared` must not import from any upper layer
+
+Forbidden examples:
+
+- `entities` importing from `features`
+- `features` importing from `widgets`
+- `shared` importing from `entities`
+- `widgets` importing from `pages`
+
+## Public API
+
+Every slice must expose a public API through `index.ts`.
+
+Correct:
+
+```ts
+import { UserCard } from '@/entities/user';
+```
+
+Incorrect:
+
+```ts
+import { UserCard } from '@/entities/user/ui/UserCard';
+```
+
+Do not import internal implementation details from another slice.
+
+## Architecture Decisions
+
+- Do not invent additional layers.
+- Do not create shared abstractions before they are needed.
+- Do not create generic repositories, factories, or universal services unless explicitly requested.
+- If the architecture is unclear, ask for clarification instead of making assumptions.

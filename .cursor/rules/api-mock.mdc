@@ -1,0 +1,48 @@
+---
+description: API and mock data rules
+globs:
+  - "src/shared/api/**/*.ts"
+  - "src/shared/api/mock/**/*.json"
+alwaysApply: false
+---
+
+# API and Mock Data
+
+The project currently uses mock data, but the API layer must be designed so it can later be replaced with real backend requests.
+
+## Structure
+
+Use this structure:
+
+```txt
+src/shared/api/
+src/shared/api/mock/
+```
+
+
+Mock JSON files must be stored in:
+
+```txt
+src/shared/api/mock/
+```
+
+## Rules
+
+- UI components must never import JSON mock files directly.
+- Features must never import JSON mock files directly.
+- Entities must never import JSON mock files directly.
+- All data access must go through `shared/api` services.
+- Mock data may be used inside API service implementations.
+- API service interfaces should be easy to replace with real HTTP requests later.
+
+## Avoid
+
+Do not create complex API infrastructure before it is needed.
+
+Avoid unless explicitly requested:
+
+- generic repositories
+- abstract API clients
+- dependency injection containers
+- universal request factories
+- complex caching layers

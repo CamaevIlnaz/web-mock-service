@@ -1,0 +1,66 @@
+---
+description: Effector rules
+globs:
+  - "src/**/model/**/*.ts"
+  - "src/**/*.model.ts"
+alwaysApply: false
+---
+
+# Effector Rules
+
+Use Effector for state management and business logic.
+
+## State Management
+
+- Business logic belongs in Effector models.
+- React components must not contain business logic.
+- Do not use React Context as global state.
+- Do not introduce another state manager.
+
+## Naming
+
+Stores must start with `$`:
+
+```ts
+$user
+$entries
+$isLoading
+```
+
+Events must describe actions or lifecycle moments:
+
+```ts
+pageMounted
+formSubmitted
+entrySelected
+entryDeleted
+```
+
+Effects must end with `Fx`:
+
+```ts
+loadUserFx
+loadEntriesFx
+createEntryFx
+saveSettingsFx
+```
+
+## Model Placement
+
+Place Effector models close to the domain they belong to:
+
+```txt
+entities/user/model/
+features/create-entry/model/
+pages/dashboard/model/
+```
+
+Use `shared` for truly generic infrastructure only.
+
+## Rules
+
+- Keep models focused.
+- Avoid one huge global model.
+- Avoid coupling unrelated domains.
+- Prefer explicit events and effects.
+- Do not trigger API calls directly from React components when they belong to domain logic.

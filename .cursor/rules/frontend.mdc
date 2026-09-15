@@ -1,0 +1,73 @@
+---
+description: Core frontend rules
+alwaysApply: true
+---
+
+# LiveOS Frontend Rules
+
+## Project
+
+LiveOS is a frontend application for tracking and managing different aspects of the user's life.
+
+The codebase must stay simple, explicit, and maintainable.
+
+## Mandatory Stack
+
+Use only this stack unless explicitly instructed otherwise:
+
+- React
+- Vite
+- TypeScript
+- Effector
+- Atomic Router
+- Chakra UI
+- Yarn
+- Feature-Sliced Design
+
+## Forbidden Technologies
+
+Do not introduce:
+
+- styled-components
+- shadcn/ui
+- Redux
+- MobX
+- Zustand
+- Recoil
+- React Router
+- Next.js
+- CSS Modules
+- SCSS architecture
+- Tailwind CSS
+- npm
+- pnpm
+- bun
+
+## General Principles
+
+- Prefer readable code over clever code.
+- Prefer explicit implementation over hidden magic.
+- Do not create abstractions before they are needed.
+- Do not generate future-proof infrastructure without a real use case.
+- Do not duplicate existing logic, entities, features, or components.
+- Do not make architectural decisions without explicit instruction.
+- Generate only what was requested.
+
+## TypeScript
+
+- Use TypeScript.
+- Avoid `any`.
+- If `any` is temporarily unavoidable, add a TODO comment explaining why.
+- Prefer explicit domain types.
+- Prefer `interface` for domain models.
+- Prefer `type` for utility types, unions, and mapped types.
+
+## Code Quality
+
+- One file should have one main responsibility.
+- Keep files small and focused.
+- Avoid files larger than 300 lines.
+- Avoid deeply nested JSX.
+- Keep business logic out of React components.
+- Keep UI components presentation-focused.
+- Reuse existing code before creating new code.

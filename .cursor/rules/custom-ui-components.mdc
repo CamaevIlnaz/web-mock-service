@@ -1,0 +1,74 @@
+---
+description: Rules for creating custom UI components with Chakra UI primitives
+globs:
+  - "src/**/*.tsx"
+  - "src/shared/ui/**/*.ts"
+  - "src/shared/ui/**/*.tsx"
+alwaysApply: false
+---
+
+# Custom UI Components
+
+If Chakra UI does not provide a ready-made component, build the component from Chakra primitives.
+
+Use Chakra primitives as the base for custom UI:
+
+- Box
+- Flex
+- Grid
+- Stack
+- HStack
+- VStack
+- Text
+- Heading
+- Icon
+- Button
+- Input
+- FormControl
+
+Do not introduce another styling system.
+
+## Allowed
+
+Use Chakra style props and theme tokens:
+
+```tsx
+<Box
+  p="4"
+  borderRadius="xl"
+  bg="surface.primary"
+  color="text.primary"
+/>
+```
+
+## Forbidden
+
+Do not use inline style attributes:
+
+```tsx
+<div style={{ padding: 16 }} />
+```
+
+Do not use styled-components:
+
+```tsx
+const Card = styled.div`
+  padding: 16px;
+`;
+```
+
+Do not create CSS files for component styling:
+
+```tsx
+import './card.css';
+```
+
+## Rules
+
+- Use Chakra UI components first.
+- Use Chakra primitives when a ready-made component does not exist.
+- Use Chakra style props for layout, spacing, colors, typography, borders, shadows, and responsive styles.
+- Use theme tokens instead of hardcoded values.
+- Keep custom components small and focused.
+- Do not create reusable shared UI components before the same pattern appears at least twice.
+- Do not duplicate Chakra components with custom wrappers unless there is a real repeated use case.

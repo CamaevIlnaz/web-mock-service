@@ -1,0 +1,82 @@
+---
+description: Styling priority rules frontend with Chakra UI
+globs:
+  - "src/**/*.tsx"
+alwaysApply: false
+---
+
+# Component Styling Priority
+
+When styling components, follow this priority order:
+
+1. Use existing Chakra UI components.
+2. Use Chakra primitives.
+3. Use Chakra theme tokens.
+4. Create a local custom component inside the current slice.
+5. Move the component to shared/ui only after the pattern appears at least twice.
+6. Do not introduce another styling system.
+
+## Chakra UI First
+
+Prefer Chakra UI components and style props for all visual work.
+
+Use Chakra for:
+
+- layout
+- spacing
+- colors
+- typography
+- borders
+- border radius
+- shadows
+- responsive styles
+- color mode
+- component variants
+
+## Theme Tokens
+
+Use theme tokens instead of hardcoded values.
+
+Allowed:
+
+```tsx
+<Box bg="surface.primary" color="text.primary" p="4" borderRadius="xl" />
+```
+
+Avoid hardcoded visual values unless they are temporary and explicitly justified:
+
+```tsx
+<Box bg="#ffffff" color="#111111" padding="16px" />
+```
+
+## Reusable Components
+
+Do not create reusable components too early.
+
+Create a component in `shared/ui` only when:
+
+- the same UI pattern is used in at least two places;
+- the component has a clear responsibility;
+- the component does not contain business logic;
+- the component can be reused without domain knowledge.
+
+Domain-specific UI belongs to the related FSD slice.
+
+Examples:
+
+- `entities/habit/ui/habit-card` for habit-specific UI.
+- `features/create-habit/ui/create-habit-form` for feature-specific UI.
+- `shared/ui/page-card` only if the same card pattern is reused across multiple domains.
+
+## Forbidden
+
+Do not use:
+
+- styled-components
+- CSS Modules
+- SCSS
+- global CSS for component styling
+- inline style attributes
+- Tailwind classes
+- emotion directly
+- external UI styling libraries

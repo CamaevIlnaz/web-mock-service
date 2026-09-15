@@ -1,0 +1,77 @@
+---
+description: Naming and import rules
+globs:
+  - "src/**/*"
+alwaysApply: false
+---
+
+# Naming and Imports
+
+## Naming
+
+Folders:
+
+```txt
+kebab-case
+```
+
+Files:
+
+```txt
+kebab-case
+```
+
+React components:
+
+```txt
+PascalCase
+```
+
+Hooks:
+
+```txt
+useSomething
+```
+
+Effector stores:
+
+```txt
+$storeName
+```
+
+Effector events:
+
+```txt
+actionPerformed
+```
+
+Effector effects:
+
+```txt
+actionFx
+```
+
+Constants:
+
+```txt
+UPPER_SNAKE_CASE
+```
+
+## Imports
+
+Use aliases for cross-slice imports.
+
+Preferred:
+
+```ts
+import { UserCard } from '@/entities/user';
+import { Button } from '@/shared/ui';
+```
+
+Avoid deep relative imports across slices:
+
+```ts
+import { Button } from '../../../../shared/ui';
+```
+
+Do not import another slice's internals.
