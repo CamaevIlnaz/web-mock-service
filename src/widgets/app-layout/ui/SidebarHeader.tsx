@@ -26,10 +26,10 @@ export function SidebarHeader() {
       </Box>
       <Text fontSize="xl" fontWeight="bold" lineHeight="1">
         <Text as="span" color="heading">
-          Life
+          Mock
         </Text>
         <Text as="span" color="brand">
-          OS
+          Hub
         </Text>
       </Text>
     </Flex>

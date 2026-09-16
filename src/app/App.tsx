@@ -4,19 +4,19 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { system } from './styles/chakra-system';
 
 import { RoutesView, router } from './router';
-import { AuthProvider } from '@/entities/session';
+//import { AuthProvider } from '@/entities/session';
 import { AppLayout } from '@/widgets/app-layout';
 
 export function App() {
   return (
     <ChakraProvider value={system}>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <RouterProvider router={router}>
           <AppLayout>
             <RoutesView />
           </AppLayout>
         </RouterProvider>
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </ChakraProvider>
   );
 }
