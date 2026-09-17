@@ -3,11 +3,11 @@ description: Core frontend rules
 alwaysApply: true
 ---
 
-# LiveOS Frontend Rules
+# Mock Service Frontend Rules
 
 ## Project
 
-LiveOS is a frontend application for tracking and managing different aspects of the user's life.
+Mock Service is a frontend application for tracking and managing different aspects of the user's life.
 
 The codebase must stay simple, explicit, and maintainable.
 
@@ -23,6 +23,8 @@ Use only this stack unless explicitly instructed otherwise:
 - Chakra UI
 - Yarn
 - Feature-Sliced Design
+- React Hook Form
+- Zod
 
 ## Forbidden Technologies
 
