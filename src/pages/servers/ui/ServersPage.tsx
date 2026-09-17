@@ -2,6 +2,10 @@ import { Box, Button, Flex } from '@chakra-ui/react';
 import { useUnit } from 'effector-react';
 import { Plus } from 'lucide-react';
 
+import {
+  CreateMockServerModal,
+  createMockServerModel,
+} from '@/features/create-mock-server';
 import { Title } from '@/shared/ui';
 
 import { $isPageLoading, $serversView, $standsOptions } from '../model';
@@ -10,10 +14,11 @@ import { ServersTable } from './ServersTable';
 import { ServersTableSkeleton } from './ServersTableSkeleton';
 
 export const ServersPage = () => {
-  const [servers, standOptions, isLoading] = useUnit([
+  const [servers, standOptions, isLoading, openCreateModal] = useUnit([
     $serversView,
     $standsOptions,
     $isPageLoading,
+    createMockServerModel.modalOpened,
   ]);
 
   return (
@@ -29,6 +34,7 @@ export const ServersPage = () => {
           px="4"
           gap="2"
           _hover={{ opacity: 0.9 }}
+          onClick={openCreateModal}
         >
           <Plus size={18} strokeWidth={2} />
           Новый сервер
@@ -44,6 +50,8 @@ export const ServersPage = () => {
       </Box>
 
       {!isLoading && <ServersInfoBanner />}
+
+      <CreateMockServerModal />
     </Box>
   );
 };
