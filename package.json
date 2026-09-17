@@ -16,6 +16,7 @@
     "@chakra-ui/react": "^3.37.0",
     "@emotion/react": "^11.14.0",
     "@fontsource/manrope": "^5.3.0",
+    "@hookform/resolvers": "^5.4.2",
     "atomic-router": "^0.12.0",
     "atomic-router-react": "^0.12.1",
     "effector": "^23.4.4",
@@ -23,7 +24,9 @@
     "history": "^5.3.0",
     "lucide-react": "^1.46.0",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "react-hook-form": "^7.66.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
