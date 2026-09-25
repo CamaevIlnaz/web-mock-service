@@ -1,12 +1,4 @@
-export interface CreateServerFormValues {
-  name: string;
-  standCode: string;
-}
-
-export interface CreateServerFormErrors {
-  name?: string;
-  standCode?: string;
-}
+export type { CreateServerFormValues } from './lib';
 
 export interface StandOption {
   value: string;

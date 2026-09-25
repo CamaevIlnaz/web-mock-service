@@ -1,20 +1,8 @@
-import type { CreateServerFormErrors, CreateServerFormValues } from './types';
+import { z } from 'zod';
 
-export const validateCreateServerForm = (
-  values: CreateServerFormValues,
-): CreateServerFormErrors => {
-  const errors: CreateServerFormErrors = {};
+export const createServerFormSchema = z.object({
+  name: z.string().trim().min(1, 'Укажите название'),
+  standCode: z.string().min(1, 'Выберите удалённый сервер'),
+});
 
-  if (!values.name.trim()) {
-    errors.name = 'Укажите название';
-  }
-
-  if (!values.standCode) {
-    errors.standCode = 'Выберите удалённый сервер';
-  }
-
-  return errors;
-};
-
-export const hasFormErrors = (errors: CreateServerFormErrors): boolean =>
-  Boolean(errors.name || errors.standCode);
+export type CreateServerFormValues = z.infer<typeof createServerFormSchema>;
