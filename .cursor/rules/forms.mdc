@@ -1,0 +1,53 @@
+---
+description: Как собирать формы на RHF + Zod + shared/form
+globs:
+  - "src/**/*.tsx"
+  - "src/**/lib.ts"
+alwaysApply: false
+---
+
+# Forms
+
+Стек: `react-hook-form` + `zod` + `@/shared/form` + Chakra UI 3.
+
+## Слои
+
+- **RHF** — значения полей, dirty/touched, client validation.
+- **Zod schema** — рядом с фичей (обычно `lib.ts`), типы через `z.infer`.
+- **Effector** — open/close, submit event, pending, server error, options из API.
+- Не дублируй поля формы в Effector-сторах.
+
+## Сборка
+
+1. Schema + `defaultValues`.
+2. `useAppForm({ schema, defaultValues })`.
+3. Оберни в `FormProvider {...form}`.
+4. Поля: `FormInput` / `FormSelect` / `FormTextarea` / `FormToggle`.
+5. Submit: `form.handleSubmit((values) => formSubmitted(values))`.
+
+```tsx
+import { FormInput, FormProvider, FormSelect, useAppForm } from '@/shared/form';
+
+const form = useAppForm({ schema, defaultValues });
+
+<FormProvider {...form}>
+  <form onSubmit={form.handleSubmit(onSubmit)}>
+    <FormInput name="name" label="Название" required />
+    <FormSelect name="standCode" label="Сервер" options={options} required />
+  </form>
+</FormProvider>
+```
+
+## Поля
+
+- `name` — путь поля RHF.
+- Ошибки Zod рендерятся внутри form-компонентов.
+- Условность: `dependencies` + `visible` / `disabled` (функция или boolean). Следи только за указанными полями через `useWatch`.
+- `visible={false}` — unmount UI, значение не чистим.
+
+## Правила
+
+- Импорт только из `@/shared/form`, не из internals.
+- Не пробрасывай `control` / `register` / `errors` вручную, если хватает form-компонентов.
+- Не вызывай API напрямую из формы — отдавай валидные values в Effector event.
+- При открытии модалки/экрана сбрасывай форму через `reset(defaultValues)`.
