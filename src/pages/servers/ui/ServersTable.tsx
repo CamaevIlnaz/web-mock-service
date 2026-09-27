@@ -16,7 +16,13 @@ import type { ServersTableProps } from '../types';
 import { formatRulesCount } from '../lib';
 import { SERVERS_TABLE_COLUMNS } from '../constants';
 
-export const ServersTable = ({ servers, standOptions }: ServersTableProps) => {
+export const ServersTable = ({
+  servers,
+  standOptions,
+  onStandChange,
+  onCopyCommand,
+  onDelete,
+}: ServersTableProps) => {
   if (servers.length === 0) {
     return (
       <Text color="muted" fontSize="sm" py="8">
@@ -62,7 +68,11 @@ export const ServersTable = ({ servers, standOptions }: ServersTableProps) => {
             <Table.Cell borderColor="border" py="4" verticalAlign="middle">
               <NativeSelect.Root size="sm" width="100%" maxW="260px">
                 <NativeSelect.Field
-                  defaultValue={server.standCode}
+                  value={server.standCode}
+                  onChange={(event) =>
+                    onStandChange(server.id, event.target.value)
+                  }
+                  cursor="pointer"
                   bg="panel"
                   borderColor="border"
                   color="text"
@@ -90,7 +100,8 @@ export const ServersTable = ({ servers, standOptions }: ServersTableProps) => {
                     variant="ghost"
                     size="xs"
                     color="muted"
-                    pointerEvents="none"
+                    cursor="pointer"
+                    onClick={() => onCopyCommand(server.startCommand)}
                   >
                     <Copy size={16} strokeWidth={1.75} />
                   </IconButton>
@@ -140,7 +151,8 @@ export const ServersTable = ({ servers, standOptions }: ServersTableProps) => {
                   variant="ghost"
                   size="xs"
                   color="muted"
-                  pointerEvents="none"
+                  cursor="pointer"
+                  onClick={() => onDelete(server.server)}
                 >
                   <Trash2 size={16} strokeWidth={1.75} />
                 </IconButton>

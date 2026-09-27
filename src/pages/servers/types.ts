@@ -20,4 +20,7 @@ export interface StandOption {
 export interface ServersTableProps {
   servers: ServerViewItem[];
   standOptions: StandOption[];
+  onStandChange: (serverId: string, standCode: string) => void;
+  onCopyCommand: (command: string) => void;
+  onDelete: (server: MockServerResponseDto) => void;
 }

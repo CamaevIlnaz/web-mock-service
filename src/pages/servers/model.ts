@@ -13,6 +13,7 @@ export const serversRoute = createRoute();
 export const serversAuthRoute = chainAuthorized(serversRoute);
 
 export const pageMounted = createEvent();
+export const standChanged = createEvent<{ id: string; standCode: string }>();
 
 export const $serversView = combine(
   mockServerModel.$servers,
@@ -58,4 +59,10 @@ sample({
 sample({
   clock: pageMounted,
   target: [mockServerModel.serversRequested, standModel.standsRequested],
+});
+
+sample({
+  clock: standChanged,
+  fn: ({ id, standCode }) => ({ id, data: { standCode } }),
+  target: mockServerModel.serverUpdated,
 });

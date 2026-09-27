@@ -6,20 +6,46 @@ import {
   CreateMockServerModal,
   createMockServerModel,
 } from '@/features/create-mock-server';
+import {
+  DeleteMockServerDialog,
+  deleteMockServerModel,
+} from '@/features/delete-mock-server';
 import { Title } from '@/shared/ui';
 
-import { $isPageLoading, $serversView, $standsOptions } from '../model';
+import {
+  $isPageLoading,
+  $serversView,
+  $standsOptions,
+  standChanged,
+} from '../model';
 import { ServersInfoBanner } from './ServersInfoBanner';
 import { ServersTable } from './ServersTable';
 import { ServersTableSkeleton } from './ServersTableSkeleton';
 
 export const ServersPage = () => {
-  const [servers, standOptions, isLoading, openCreateModal] = useUnit([
+  const [
+    servers,
+    standOptions,
+    isLoading,
+    openCreateModal,
+    changeStand,
+    openDelete,
+  ] = useUnit([
     $serversView,
     $standsOptions,
     $isPageLoading,
     createMockServerModel.modalOpened,
+    standChanged,
+    deleteMockServerModel.dialogOpened,
   ]);
+
+  const handleCopyCommand = (command: string) => {
+    void navigator.clipboard.writeText(command);
+  };
+
+  const handleStandChange = (serverId: string, standCode: string) => {
+    changeStand({ id: serverId, standCode });
+  };
 
   return (
     <Box px="8" py="8" maxW="1200px">
@@ -33,6 +59,7 @@ export const ServersPage = () => {
           fontWeight="medium"
           px="4"
           gap="2"
+          cursor="pointer"
           _hover={{ opacity: 0.9 }}
           onClick={openCreateModal}
         >
@@ -45,13 +72,20 @@ export const ServersPage = () => {
         {isLoading ? (
           <ServersTableSkeleton />
         ) : (
-          <ServersTable servers={servers} standOptions={standOptions} />
+          <ServersTable
+            servers={servers}
+            standOptions={standOptions}
+            onStandChange={handleStandChange}
+            onCopyCommand={handleCopyCommand}
+            onDelete={openDelete}
+          />
         )}
       </Box>
 
       {!isLoading && <ServersInfoBanner />}
 
       <CreateMockServerModal />
+      <DeleteMockServerDialog />
     </Box>
   );
 };
