@@ -1,4 +1,6 @@
-import { Input } from '@chakra-ui/react';
+import { Box, IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { Eye, EyeOff } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
 import {
   get,
   useFormContext,
@@ -17,6 +19,8 @@ export interface FormInputProps<TFieldValues extends FieldValues>
   placeholder?: string;
   helperText?: string;
   required?: boolean;
+  type?: 'text' | 'email' | 'password';
+  startElement?: ReactNode;
 }
 
 export const FormInput = <TFieldValues extends FieldValues>({
@@ -25,6 +29,8 @@ export const FormInput = <TFieldValues extends FieldValues>({
   placeholder,
   helperText,
   required,
+  type = 'text',
+  startElement,
   dependencies,
   visible = true,
   disabled = false,
@@ -38,12 +44,74 @@ export const FormInput = <TFieldValues extends FieldValues>({
     visible,
     disabled,
   });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   if (!isVisible) {
     return null;
   }
 
   const errorMessage = get(errors, name)?.message as string | undefined;
+  const isPassword = type === 'password';
+  const inputType = isPassword
+    ? isPasswordVisible
+      ? 'text'
+      : 'password'
+    : type;
+
+  const input = (
+    <Input
+      {...register(name)}
+      type={inputType}
+      placeholder={placeholder}
+      disabled={isDisabled}
+      required={false}
+      aria-required={required || undefined}
+      size="md"
+      w="100%"
+      bg="panel"
+      borderColor="border"
+      h="11"
+    />
+  );
+
+  const fieldControl =
+    startElement || isPassword ? (
+      <InputGroup
+        w="100%"
+        startElement={
+          startElement ? (
+            <Box color="muted" display="flex" alignItems="center">
+              {startElement}
+            </Box>
+          ) : undefined
+        }
+        endElement={
+          isPassword ? (
+            <IconButton
+              type="button"
+              aria-label={
+                isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'
+              }
+              variant="ghost"
+              size="xs"
+              color="muted"
+              onClick={() => setIsPasswordVisible((prev) => !prev)}
+              tabIndex={-1}
+            >
+              {isPasswordVisible ? (
+                <EyeOff size={18} strokeWidth={1.75} />
+              ) : (
+                <Eye size={18} strokeWidth={1.75} />
+              )}
+            </IconButton>
+          ) : undefined
+        }
+      >
+        {input}
+      </InputGroup>
+    ) : (
+      input
+    );
 
   return (
     <FormField
@@ -52,17 +120,9 @@ export const FormInput = <TFieldValues extends FieldValues>({
       helperText={helperText}
       errorMessage={errorMessage}
     >
-      <Input
-        {...register(name)}
-        placeholder={placeholder}
-        disabled={isDisabled}
-        required={false}
-        aria-required={required || undefined}
-        size="md"
-        bg="panel"
-        borderColor="border"
-        mt="1.5"
-      />
+      <Box mt="1.5" w="100%">
+        {fieldControl}
+      </Box>
     </FormField>
   );
 };

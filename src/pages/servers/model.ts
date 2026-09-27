@@ -2,6 +2,7 @@ import { combine, createEvent, sample } from 'effector';
 import { createRoute } from 'atomic-router';
 
 import { formatStartCommand, mockServerModel } from '@/entities/mock-server';
+import { chainAuthorized } from '@/entities/session';
 import { formatStandLabel, standModel } from '@/entities/stand';
 
 import type { ServerViewItem } from './types';
@@ -9,6 +10,7 @@ import type { ServerViewItem } from './types';
 export type { ServerViewItem, StandOption, ServersTableProps } from './types';
 
 export const serversRoute = createRoute();
+export const serversAuthRoute = chainAuthorized(serversRoute);
 
 export const pageMounted = createEvent();
 
@@ -49,7 +51,7 @@ export const $isPageLoading = combine(
 );
 
 sample({
-  clock: serversRoute.opened,
+  clock: serversAuthRoute.opened,
   target: pageMounted,
 });
 

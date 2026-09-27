@@ -19,7 +19,7 @@ export const FormField = ({
   const isInvalid = Boolean(errorMessage);
 
   return (
-    <Field.Root invalid={isInvalid}>
+    <Field.Root invalid={isInvalid} w="100%" alignItems="stretch">
       <Field.Label fontSize="sm" fontWeight="semibold" color="heading">
         {label}
         {required ? (
