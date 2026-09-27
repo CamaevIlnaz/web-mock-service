@@ -35,7 +35,7 @@ export const ServersTable = ({
     <Table.Root size="md">
       <Table.Header>
         <Table.Row>
-          {SERVERS_TABLE_COLUMNS.map((column) => (
+          {SERVERS_TABLE_COLUMNS.map((column, index) => (
             <Table.ColumnHeader
               key={column.id}
               color="muted"
@@ -45,6 +45,7 @@ export const ServersTable = ({
               letterSpacing="0.04em"
               borderColor="border"
               w={column.width}
+              pl={index === 0 ? '6' : undefined}
             >
               {column.label}
             </Table.ColumnHeader>
@@ -54,7 +55,7 @@ export const ServersTable = ({
       <Table.Body>
         {servers.map((server) => (
           <Table.Row key={server.id}>
-            <Table.Cell borderColor="border" py="4" verticalAlign="middle">
+            <Table.Cell borderColor="border" py="4" pl="6" verticalAlign="middle">
               <Box>
                 <Text fontWeight="semibold" color="heading" fontSize="sm">
                   {server.name}

@@ -9,7 +9,7 @@ export const StandsTableSkeleton = () => {
     <Table.Root size="md">
       <Table.Header>
         <Table.Row>
-          {STANDS_TABLE_COLUMNS.map((column) => (
+          {STANDS_TABLE_COLUMNS.map((column, index) => (
             <Table.ColumnHeader
               key={column.id}
               color="muted"
@@ -19,6 +19,7 @@ export const StandsTableSkeleton = () => {
               letterSpacing="0.04em"
               borderColor="border"
               w={column.width}
+              pl={index === 0 ? '6' : undefined}
             >
               {column.label}
             </Table.ColumnHeader>
@@ -28,7 +29,7 @@ export const StandsTableSkeleton = () => {
       <Table.Body>
         {Array.from({ length: SKELETON_ROWS }, (_, index) => (
           <Table.Row key={index}>
-            <Table.Cell borderColor="border" py="4">
+            <Table.Cell borderColor="border" py="4" pl="6">
               <Skeleton height="16px" width="72px" />
             </Table.Cell>
             <Table.Cell borderColor="border" py="4">

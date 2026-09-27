@@ -17,7 +17,7 @@ export const StandsTable = ({ stands, onEdit, onDelete }: StandsTableProps) => {
     <Table.Root size="md">
       <Table.Header>
         <Table.Row>
-          {STANDS_TABLE_COLUMNS.map((column) => (
+          {STANDS_TABLE_COLUMNS.map((column, index) => (
             <Table.ColumnHeader
               key={column.id}
               color="muted"
@@ -28,6 +28,7 @@ export const StandsTable = ({ stands, onEdit, onDelete }: StandsTableProps) => {
               borderColor="border"
               w={column.width}
               textAlign={column.id === 'actions' ? 'right' : 'start'}
+              pl={index === 0 ? '6' : undefined}
             >
               {column.label}
             </Table.ColumnHeader>
@@ -37,7 +38,7 @@ export const StandsTable = ({ stands, onEdit, onDelete }: StandsTableProps) => {
       <Table.Body>
         {stands.map((stand) => (
           <Table.Row key={stand.id}>
-            <Table.Cell borderColor="border" py="4" verticalAlign="middle">
+            <Table.Cell borderColor="border" py="4" pl="6" verticalAlign="middle">
               <Text fontSize="sm" fontWeight="semibold" color="heading">
                 {stand.code}
               </Text>
