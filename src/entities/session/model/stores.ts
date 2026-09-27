@@ -23,6 +23,8 @@ export const $user = createStore<AuthUserResponseDto | null>(null)
   .on(logoutFx.done, () => null)
   .on(meFx.fail, () => null);
 
+export const $isAdmin = $user.map((user) => user?.role === 'admin');
+
 export const $authStatus = createStore<AuthStatus>('pending')
   .on(meFx.done, () => 'authenticated')
   .on(meFx.fail, () => 'anonymous')

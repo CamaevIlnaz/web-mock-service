@@ -7,6 +7,7 @@ import {
 import {
   $authStatus,
   $authView,
+  $isAdmin,
   $isSubmitting,
   $submitError,
   $user,
@@ -20,6 +21,7 @@ import {
 
 export const sessionModel = {
   $user,
+  $isAdmin,
   $authStatus,
   $authView,
   $isSubmitting,
