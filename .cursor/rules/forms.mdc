@@ -31,7 +31,7 @@ import { FormInput, FormProvider, FormSelect, useAppForm } from '@/shared/form';
 const form = useAppForm({ schema, defaultValues });
 
 <FormProvider {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)}>
+  <form noValidate onSubmit={form.handleSubmit(onSubmit)}>
     <FormInput name="name" label="Название" required />
     <FormSelect name="standCode" label="Сервер" options={options} required />
   </form>
@@ -41,7 +41,8 @@ const form = useAppForm({ schema, defaultValues });
 ## Поля
 
 - `name` — путь поля RHF.
-- Ошибки Zod рендерятся внутри form-компонентов.
+- Ошибки берутся из Zod schema (кастомные `message` / `error`), не из HTML5 validation.
+- На `<form>` всегда ставь `noValidate`.
 - Условность: `dependencies` + `visible` / `disabled` (функция или boolean). Следи только за указанными полями через `useWatch`.
 - `visible={false}` — unmount UI, значение не чистим.
 

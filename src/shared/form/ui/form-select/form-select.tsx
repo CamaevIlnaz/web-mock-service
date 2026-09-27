@@ -67,6 +67,8 @@ export const FormSelect = <TFieldValues extends FieldValues>({
         <NativeSelect.Field
           {...register(name)}
           placeholder={placeholder}
+          required={false}
+          aria-required={required || undefined}
           bg="panel"
           borderColor="border"
         >

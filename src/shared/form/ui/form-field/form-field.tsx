@@ -1,4 +1,4 @@
-import { Field } from '@chakra-ui/react';
+import { Field, Text } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 
 interface FormFieldProps {
@@ -19,10 +19,14 @@ export const FormField = ({
   const isInvalid = Boolean(errorMessage);
 
   return (
-    <Field.Root invalid={isInvalid} required={required}>
+    <Field.Root invalid={isInvalid}>
       <Field.Label fontSize="sm" fontWeight="semibold" color="heading">
         {label}
-        {required ? <Field.RequiredIndicator color="danger" /> : null}
+        {required ? (
+          <Text as="span" color="danger" ms="0.5" aria-hidden>
+            *
+          </Text>
+        ) : null}
       </Field.Label>
       {children}
       {helperText ? (

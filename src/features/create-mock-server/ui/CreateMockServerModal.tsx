@@ -116,7 +116,7 @@ export const CreateMockServerModal = () => {
             </Dialog.Header>
 
             <FormProvider {...form}>
-              <Box as="form" onSubmit={onSubmit}>
+              <Box as="form" noValidate onSubmit={onSubmit}>
                 <Dialog.Body
                   px="6"
                   py="0"

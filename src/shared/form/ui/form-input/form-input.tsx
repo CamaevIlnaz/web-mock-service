@@ -56,6 +56,8 @@ export const FormInput = <TFieldValues extends FieldValues>({
         {...register(name)}
         placeholder={placeholder}
         disabled={isDisabled}
+        required={false}
+        aria-required={required || undefined}
         size="md"
         bg="panel"
         borderColor="border"

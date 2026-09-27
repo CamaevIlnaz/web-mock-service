@@ -58,6 +58,8 @@ export const FormTextarea = <TFieldValues extends FieldValues>({
         {...register(name)}
         placeholder={placeholder}
         disabled={isDisabled}
+        required={false}
+        aria-required={required || undefined}
         rows={rows}
         size="md"
         bg="panel"
