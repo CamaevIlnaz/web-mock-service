@@ -5,6 +5,7 @@ import {
   type StandFormValues,
   type StandResponseDto,
 } from '@/entities/stand';
+import { notifySuccessFx } from '@/shared/ui';
 
 export const modalOpened = createEvent<StandResponseDto>();
 export const modalClosed = createEvent();
@@ -34,6 +35,12 @@ sample({
     data: values,
   }),
   target: standModel.standUpdated,
+});
+
+sample({
+  clock: standModel.updateStandFx.done,
+  fn: () => 'Удалённый сервер обновлён',
+  target: notifySuccessFx,
 });
 
 export const editStandModel = {

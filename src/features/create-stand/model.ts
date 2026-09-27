@@ -1,6 +1,7 @@
 import { createEvent, createStore, sample } from 'effector';
 
 import { standModel, type StandFormValues } from '@/entities/stand';
+import { notifySuccessFx } from '@/shared/ui';
 
 export const modalOpened = createEvent();
 export const modalClosed = createEvent();
@@ -20,6 +21,12 @@ export const $submitError = createStore<string | null>(null)
 sample({
   clock: formSubmitted,
   target: standModel.standCreated,
+});
+
+sample({
+  clock: standModel.createStandFx.done,
+  fn: () => 'Удалённый сервер создан',
+  target: notifySuccessFx,
 });
 
 export const createStandModel = {

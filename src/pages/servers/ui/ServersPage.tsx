@@ -10,7 +10,7 @@ import {
   DeleteMockServerDialog,
   deleteMockServerModel,
 } from '@/features/delete-mock-server';
-import { Title } from '@/shared/ui';
+import { Title, notify } from '@/shared/ui';
 
 import {
   $isPageLoading,
@@ -39,8 +39,13 @@ export const ServersPage = () => {
     deleteMockServerModel.dialogOpened,
   ]);
 
-  const handleCopyCommand = (command: string) => {
-    void navigator.clipboard.writeText(command);
+  const handleCopyCommand = async (command: string) => {
+    try {
+      await navigator.clipboard.writeText(command);
+      notify.success('Команда скопирована');
+    } catch {
+      notify.error('Не удалось скопировать команду');
+    }
   };
 
   const handleStandChange = (serverId: string, standCode: string) => {

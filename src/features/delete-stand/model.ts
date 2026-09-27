@@ -1,6 +1,7 @@
 import { createEvent, createStore, sample } from 'effector';
 
 import { standModel, type StandResponseDto } from '@/entities/stand';
+import { notifySuccessFx } from '@/shared/ui';
 
 export const dialogOpened = createEvent<StandResponseDto>();
 export const dialogClosed = createEvent();
@@ -27,6 +28,12 @@ sample({
   filter: Boolean,
   fn: (stand) => stand!.id,
   target: standModel.standRemoved,
+});
+
+sample({
+  clock: standModel.removeStandFx.done,
+  fn: () => 'Удалённый сервер удалён',
+  target: notifySuccessFx,
 });
 
 export const deleteStandModel = {

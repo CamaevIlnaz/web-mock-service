@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '@/entities/session';
 import { LoginPage } from '@/pages/login';
 import { RegisterPage } from '@/pages/register';
+import { Toaster } from '@/shared/ui';
 import { AppLayout } from '@/widgets/app-layout';
 
 import { RoutesView, router } from './router';
@@ -19,6 +20,7 @@ export function App() {
           </AppLayout>
         </RouterProvider>
       </AuthProvider>
+      <Toaster />
     </ChakraProvider>
   );
 }

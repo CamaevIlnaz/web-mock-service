@@ -4,6 +4,7 @@ import {
   mockServerModel,
   type MockServerResponseDto,
 } from '@/entities/mock-server';
+import { notifySuccessFx } from '@/shared/ui';
 
 export const dialogOpened = createEvent<MockServerResponseDto>();
 export const dialogClosed = createEvent();
@@ -30,6 +31,12 @@ sample({
   filter: Boolean,
   fn: (server) => server!.id,
   target: mockServerModel.serverRemoved,
+});
+
+sample({
+  clock: mockServerModel.removeServerFx.done,
+  fn: () => 'Сервер удалён',
+  target: notifySuccessFx,
 });
 
 export const deleteMockServerModel = {

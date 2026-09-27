@@ -2,6 +2,7 @@ import { createEvent, createStore, sample } from 'effector';
 
 import { mockServerModel } from '@/entities/mock-server';
 import { formatStandLabel, standModel } from '@/entities/stand';
+import { notifySuccessFx } from '@/shared/ui';
 
 import type { CreateServerFormValues } from './lib';
 import type { StandOption } from './types';
@@ -36,6 +37,12 @@ sample({
     standCode,
   }),
   target: mockServerModel.serverCreated,
+});
+
+sample({
+  clock: mockServerModel.createServerFx.done,
+  fn: () => 'Сервер создан',
+  target: notifySuccessFx,
 });
 
 export const createMockServerModel = {

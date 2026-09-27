@@ -4,6 +4,7 @@ import { createRoute } from 'atomic-router';
 import { formatStartCommand, mockServerModel } from '@/entities/mock-server';
 import { chainAuthorized } from '@/entities/session';
 import { formatStandLabel, standModel } from '@/entities/stand';
+import { notifyErrorFx, notifySuccessFx } from '@/shared/ui';
 
 import type { ServerViewItem } from './types';
 
@@ -65,4 +66,16 @@ sample({
   clock: standChanged,
   fn: ({ id, standCode }) => ({ id, data: { standCode } }),
   target: mockServerModel.serverUpdated,
+});
+
+sample({
+  clock: mockServerModel.updateServerFx.done,
+  fn: () => 'Удалённый сервер изменён',
+  target: notifySuccessFx,
+});
+
+sample({
+  clock: mockServerModel.updateServerFx.failData,
+  fn: (error) => error.message || 'Не удалось изменить удалённый сервер',
+  target: notifyErrorFx,
 });
