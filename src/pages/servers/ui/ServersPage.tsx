@@ -48,7 +48,7 @@ export const ServersPage = () => {
     }
   };
 
-  const handleStandChange = (serverId: string, standCode: string) => {
+  const handleStandChange = (serverId: number, standCode: string) => {
     changeStand({ id: serverId, standCode });
   };
 

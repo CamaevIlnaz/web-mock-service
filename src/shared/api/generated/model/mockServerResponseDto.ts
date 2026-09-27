@@ -7,11 +7,11 @@
  */
 
 export interface MockServerResponseDto {
-  id: string;
+  id: number;
   name: string;
   sortOrder: number;
   standCode: string;
-  userId: string;
+  userId: number;
   connectionToken: string;
   createdAt: string;
   updatedAt: string;

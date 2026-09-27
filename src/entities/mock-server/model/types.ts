@@ -11,6 +11,6 @@ export type {
 };
 
 export interface UpdateServerParams {
-  id: string;
+  id: number;
   data: UpdateMockServerDto;
 }

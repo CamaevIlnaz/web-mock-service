@@ -14,10 +14,10 @@ import type {
 } from './types';
 
 export const serversRequested = createEvent();
-export const serverRequested = createEvent<string>();
+export const serverRequested = createEvent<number>();
 export const serverCreated = createEvent<CreateMockServerDto>();
 export const serverUpdated = createEvent<UpdateServerParams>();
-export const serverRemoved = createEvent<string>();
+export const serverRemoved = createEvent<number>();
 
 export const $servers = createStore<MockServerResponseDto[]>([]);
 export const $server = createStore<MockServerResponseDto | null>(null);

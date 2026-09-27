@@ -18,7 +18,7 @@ export const fetchStandsFx = createEffect<void, StandResponseDto[]>(() =>
   standsControllerFindAll(),
 );
 
-export const fetchStandFx = createEffect<string, StandResponseDto>((id) =>
+export const fetchStandFx = createEffect<number, StandResponseDto>((id) =>
   standsControllerFindOne(id),
 );
 
@@ -31,7 +31,7 @@ export const updateStandFx = createEffect<
   StandResponseDto
 >(({ id, data }) => standsControllerUpdate(id, data));
 
-export const removeStandFx = createEffect<string, string>(async (id) => {
+export const removeStandFx = createEffect<number, number>(async (id) => {
   await standsControllerRemove(id);
   return id;
 });

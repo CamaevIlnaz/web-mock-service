@@ -7,7 +7,7 @@
  */
 
 export interface MockResponseFileMetaDto {
-  id: string;
+  id: number;
   originalName: string;
   mimeType: string;
   sizeBytes: number;

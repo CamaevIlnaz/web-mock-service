@@ -9,7 +9,7 @@ import type { AuthUserResponseDtoAvatarUrl } from './authUserResponseDtoAvatarUr
 import type { AuthUserResponseDtoRole } from './authUserResponseDtoRole';
 
 export interface AuthUserResponseDto {
-  id: string;
+  id: number;
   login: string;
   firstName: string;
   role: AuthUserResponseDtoRole;

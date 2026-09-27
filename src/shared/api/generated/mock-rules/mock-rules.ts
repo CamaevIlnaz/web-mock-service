@@ -9,27 +9,39 @@ import type {
   CopyMockRuleDto,
   CreateMockRuleDto,
   MockRuleResponseDto,
-  MockRulesControllerCreateBodyOne,
-  MockRulesControllerUpdateBodyOne,
+  MockRulesControllerCreateBodyTwo,
+  MockRulesControllerFindAllParams,
+  MockRulesControllerUpdateBodyTwo,
+  PaginatedMockRulesResponseDto,
   UpdateMockRuleDto
 } from '../model';
 
 import { customFetch } from '../../http-client';
 
-export const getMockRulesControllerFindAllUrl = (mockServerId: string,) => {
+export const getMockRulesControllerFindAllUrl = (mockServerId: number,
+    params?: MockRulesControllerFindAllParams,) => {
+  const normalizedParams = new URLSearchParams();
 
+  Object.entries(params || {}).forEach(([key, value]) => {
 
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
 
+  const stringifiedParams = normalizedParams.toString();
 
-  return `/api/mock-servers/${mockServerId}/rules`
+  return stringifiedParams.length > 0 ? `/api/mock-servers/${mockServerId}/rules?${stringifiedParams}` : `/api/mock-servers/${mockServerId}/rules`
 }
 
 /**
+ * Пагинация, поиск по названию/URL, фильтры по method и isEnabled. Сортировка по priority asc.
  * @summary Список правил мокирования мок-сервера
  */
-export const mockRulesControllerFindAll = async (mockServerId: string, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto[]> => {
+export const mockRulesControllerFindAll = async (mockServerId: number,
+    params?: MockRulesControllerFindAllParams, options?: Parameters<typeof customFetch>[1]): Promise<PaginatedMockRulesResponseDto> => {
 
-  return customFetch<MockRuleResponseDto[]>(getMockRulesControllerFindAllUrl(mockServerId),
+  return customFetch<PaginatedMockRulesResponseDto>(getMockRulesControllerFindAllUrl(mockServerId,params),
   {
     ...options,
     method: 'GET'
@@ -39,7 +51,7 @@ export const mockRulesControllerFindAll = async (mockServerId: string, options?:
 );}
 
 
-export const getMockRulesControllerCreateUrl = (mockServerId: string,) => {
+export const getMockRulesControllerCreateUrl = (mockServerId: number,) => {
 
 
 
@@ -51,8 +63,8 @@ export const getMockRulesControllerCreateUrl = (mockServerId: string,) => {
  * JSON для INLINE_JSON или FILE с существующим responseFileId; multipart (data+file) для нового файла
  * @summary Создать правило мокирования
  */
-export const mockRulesControllerCreate = async (mockServerId: string,
-    mockRulesControllerCreateBody: MockRulesControllerCreateBodyOne | CreateMockRuleDto, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
+export const mockRulesControllerCreate = async (mockServerId: number,
+    mockRulesControllerCreateBody: CreateMockRuleDto | MockRulesControllerCreateBodyTwo, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
 
   return customFetch<MockRuleResponseDto>(getMockRulesControllerCreateUrl(mockServerId),
   {
@@ -64,8 +76,8 @@ export const mockRulesControllerCreate = async (mockServerId: string,
 );}
 
 
-export const getMockRulesControllerFindOneUrl = (mockServerId: string,
-    id: string,) => {
+export const getMockRulesControllerFindOneUrl = (mockServerId: number,
+    id: number,) => {
 
 
 
@@ -76,8 +88,8 @@ export const getMockRulesControllerFindOneUrl = (mockServerId: string,
 /**
  * @summary Получить правило мокирования по id
  */
-export const mockRulesControllerFindOne = async (mockServerId: string,
-    id: string, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
+export const mockRulesControllerFindOne = async (mockServerId: number,
+    id: number, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
 
   return customFetch<MockRuleResponseDto>(getMockRulesControllerFindOneUrl(mockServerId,id),
   {
@@ -89,8 +101,8 @@ export const mockRulesControllerFindOne = async (mockServerId: string,
 );}
 
 
-export const getMockRulesControllerUpdateUrl = (mockServerId: string,
-    id: string,) => {
+export const getMockRulesControllerUpdateUrl = (mockServerId: number,
+    id: number,) => {
 
 
 
@@ -102,9 +114,9 @@ export const getMockRulesControllerUpdateUrl = (mockServerId: string,
  * JSON или multipart (data+file) при загрузке нового файла ответа
  * @summary Обновить правило мокирования
  */
-export const mockRulesControllerUpdate = async (mockServerId: string,
-    id: string,
-    mockRulesControllerUpdateBody: MockRulesControllerUpdateBodyOne | UpdateMockRuleDto, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
+export const mockRulesControllerUpdate = async (mockServerId: number,
+    id: number,
+    mockRulesControllerUpdateBody: UpdateMockRuleDto | MockRulesControllerUpdateBodyTwo, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
 
   return customFetch<MockRuleResponseDto>(getMockRulesControllerUpdateUrl(mockServerId,id),
   {
@@ -116,8 +128,8 @@ export const mockRulesControllerUpdate = async (mockServerId: string,
 );}
 
 
-export const getMockRulesControllerRemoveUrl = (mockServerId: string,
-    id: string,) => {
+export const getMockRulesControllerRemoveUrl = (mockServerId: number,
+    id: number,) => {
 
 
 
@@ -128,8 +140,8 @@ export const getMockRulesControllerRemoveUrl = (mockServerId: string,
 /**
  * @summary Удалить правило мокирования (файл ответа не удаляется)
  */
-export const mockRulesControllerRemove = async (mockServerId: string,
-    id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const mockRulesControllerRemove = async (mockServerId: number,
+    id: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getMockRulesControllerRemoveUrl(mockServerId,id),
   {
@@ -141,8 +153,8 @@ export const mockRulesControllerRemove = async (mockServerId: string,
 );}
 
 
-export const getMockRulesControllerCopyUrl = (mockServerId: string,
-    id: string,) => {
+export const getMockRulesControllerCopyUrl = (mockServerId: number,
+    id: number,) => {
 
 
 
@@ -153,8 +165,8 @@ export const getMockRulesControllerCopyUrl = (mockServerId: string,
 /**
  * @summary Скопировать правило в мок-сервер текущего пользователя
  */
-export const mockRulesControllerCopy = async (mockServerId: string,
-    id: string,
+export const mockRulesControllerCopy = async (mockServerId: number,
+    id: number,
     copyMockRuleDto: CopyMockRuleDto, options?: Parameters<typeof customFetch>[1]): Promise<MockRuleResponseDto> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {

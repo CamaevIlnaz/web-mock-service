@@ -1,0 +1,56 @@
+import {
+  fetchRulesFx,
+  removeRuleFx,
+  reorderRulesFx,
+  updateRuleFx,
+} from './effects';
+import {
+  $fetchMode,
+  $hasMore,
+  $isLoadingMore,
+  $isRulesLoading,
+  $page,
+  $rules,
+  $rulesError,
+  $total,
+  $totalPages,
+  ruleRemoved,
+  rulesRequested,
+  rulesReset,
+  rulesReordered,
+  ruleUpdated,
+} from './stores';
+
+export const mockRuleModel = {
+  $rules,
+  $page,
+  $totalPages,
+  $total,
+  $fetchMode,
+  $rulesError,
+  $isRulesLoading,
+  $isLoadingMore,
+  $hasMore,
+  rulesRequested,
+  ruleUpdated,
+  ruleRemoved,
+  rulesReordered,
+  rulesReset,
+  fetchRulesFx,
+  updateRuleFx,
+  removeRuleFx,
+  reorderRulesFx,
+};
+
+export type {
+  FetchRulesMode,
+  FetchRulesParams,
+  MockRuleResponseDto,
+  MockRulesControllerFindAllMethod,
+  MockRulesControllerFindAllParams,
+  PaginatedMockRulesResponseDto,
+  RemoveRuleParams,
+  ReorderRulesParams,
+  UpdateMockRuleDto,
+  UpdateRuleParams,
+} from './types';

@@ -13,8 +13,8 @@ import type { MockRuleResponseDtoResponseHeaders } from './mockRuleResponseDtoRe
 import type { MockRuleResponseDtoResponseType } from './mockRuleResponseDtoResponseType';
 
 export interface MockRuleResponseDto {
-  id: string;
-  mockServerId: string;
+  id: number;
+  mockServerId: number;
   name: string;
   method: MockRuleResponseDtoMethod;
   urlMask: string;

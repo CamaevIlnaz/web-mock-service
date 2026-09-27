@@ -11,7 +11,7 @@ import type {
 
 import { customFetch } from '../../http-client';
 
-export const getMockResponseFilesControllerFindAllUrl = (mockServerId: string,) => {
+export const getMockResponseFilesControllerFindAllUrl = (mockServerId: number,) => {
 
 
 
@@ -22,7 +22,7 @@ export const getMockResponseFilesControllerFindAllUrl = (mockServerId: string,) 
 /**
  * @summary Список файлов ответов мок-сервера
  */
-export const mockResponseFilesControllerFindAll = async (mockServerId: string, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto[]> => {
+export const mockResponseFilesControllerFindAll = async (mockServerId: number, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto[]> => {
 
   return customFetch<MockResponseFileMetaDto[]>(getMockResponseFilesControllerFindAllUrl(mockServerId),
   {
@@ -34,8 +34,8 @@ export const mockResponseFilesControllerFindAll = async (mockServerId: string, o
 );}
 
 
-export const getMockResponseFilesControllerGetContentUrl = (mockServerId: string,
-    fileId: string,) => {
+export const getMockResponseFilesControllerGetContentUrl = (mockServerId: number,
+    fileId: number,) => {
 
 
 
@@ -46,8 +46,8 @@ export const getMockResponseFilesControllerGetContentUrl = (mockServerId: string
 /**
  * @summary Скачать содержимое файла ответа (JWT + ownership)
  */
-export const mockResponseFilesControllerGetContent = async (mockServerId: string,
-    fileId: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const mockResponseFilesControllerGetContent = async (mockServerId: number,
+    fileId: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getMockResponseFilesControllerGetContentUrl(mockServerId,fileId),
   {
@@ -59,8 +59,8 @@ export const mockResponseFilesControllerGetContent = async (mockServerId: string
 );}
 
 
-export const getMockResponseFilesControllerRemoveUrl = (mockServerId: string,
-    fileId: string,) => {
+export const getMockResponseFilesControllerRemoveUrl = (mockServerId: number,
+    fileId: number,) => {
 
 
 
@@ -71,8 +71,8 @@ export const getMockResponseFilesControllerRemoveUrl = (mockServerId: string,
 /**
  * @summary Удалить файл ответа (запрещено, если используется правилами)
  */
-export const mockResponseFilesControllerRemove = async (mockServerId: string,
-    fileId: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const mockResponseFilesControllerRemove = async (mockServerId: number,
+    fileId: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getMockResponseFilesControllerRemoveUrl(mockServerId,fileId),
   {

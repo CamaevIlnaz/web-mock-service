@@ -1,5 +1,5 @@
 import { ServersPage, serversRoute } from './servers';
-import { RequestsPage, requestsRoute } from './requests';
+import { RulesPage, rulesRoute } from './rules';
 import { BpmPage, bpmRoute } from './bpm';
 import { DocumentationPage, documentationRoute } from './documentation';
 import { SettingsPage, settingsRoute } from './settings';
@@ -17,10 +17,11 @@ export const routes = [
     view: ServersPage,
   },
   {
-    path: '/requests',
-    route: requestsRoute,
-    view: RequestsPage,
+    path: '/rules',
+    route: rulesRoute,
+    view: RulesPage,
   },
+
   {
     path: '/bpm',
     route: bpmRoute,

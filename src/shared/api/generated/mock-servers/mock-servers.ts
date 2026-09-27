@@ -73,7 +73,7 @@ return customFetch<MockServerResponseDto>(getMockServersControllerCreateUrl(),
 );}
 
 
-export const getMockServersControllerFindOneUrl = (id: string,) => {
+export const getMockServersControllerFindOneUrl = (id: number,) => {
 
 
 
@@ -84,7 +84,7 @@ export const getMockServersControllerFindOneUrl = (id: string,) => {
 /**
  * @summary Получить мок-сервер по id
  */
-export const mockServersControllerFindOne = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<MockServerResponseDto> => {
+export const mockServersControllerFindOne = async (id: number, options?: Parameters<typeof customFetch>[1]): Promise<MockServerResponseDto> => {
 
   return customFetch<MockServerResponseDto>(getMockServersControllerFindOneUrl(id),
   {
@@ -96,7 +96,7 @@ export const mockServersControllerFindOne = async (id: string, options?: Paramet
 );}
 
 
-export const getMockServersControllerUpdateUrl = (id: string,) => {
+export const getMockServersControllerUpdateUrl = (id: number,) => {
 
 
 
@@ -107,7 +107,7 @@ export const getMockServersControllerUpdateUrl = (id: string,) => {
 /**
  * @summary Обновить мок-сервер
  */
-export const mockServersControllerUpdate = async (id: string,
+export const mockServersControllerUpdate = async (id: number,
     updateMockServerDto: UpdateMockServerDto, options?: Parameters<typeof customFetch>[1]): Promise<MockServerResponseDto> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
@@ -134,7 +134,7 @@ return customFetch<MockServerResponseDto>(getMockServersControllerUpdateUrl(id),
 );}
 
 
-export const getMockServersControllerRemoveUrl = (id: string,) => {
+export const getMockServersControllerRemoveUrl = (id: number,) => {
 
 
 
@@ -145,7 +145,7 @@ export const getMockServersControllerRemoveUrl = (id: string,) => {
 /**
  * @summary Удалить мок-сервер
  */
-export const mockServersControllerRemove = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const mockServersControllerRemove = async (id: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getMockServersControllerRemoveUrl(id),
   {

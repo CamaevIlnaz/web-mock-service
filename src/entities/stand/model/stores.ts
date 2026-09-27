@@ -10,10 +10,10 @@ import {
 import type { CreateStandDto, StandResponseDto, UpdateStandParams } from './types';
 
 export const standsRequested = createEvent();
-export const standRequested = createEvent<string>();
+export const standRequested = createEvent<number>();
 export const standCreated = createEvent<CreateStandDto>();
 export const standUpdated = createEvent<UpdateStandParams>();
-export const standRemoved = createEvent<string>();
+export const standRemoved = createEvent<number>();
 
 export const $stands = createStore<StandResponseDto[]>([]);
 export const $stand = createStore<StandResponseDto | null>(null);

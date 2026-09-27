@@ -7,6 +7,6 @@ import type {
 export type { CreateStandDto, StandResponseDto, UpdateStandDto };
 
 export interface UpdateStandParams {
-  id: string;
+  id: number;
   data: UpdateStandDto;
 }

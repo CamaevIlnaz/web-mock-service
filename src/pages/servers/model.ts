@@ -14,7 +14,7 @@ export const serversRoute = createRoute();
 export const serversAuthRoute = chainAuthorized(serversRoute);
 
 export const pageMounted = createEvent();
-export const standChanged = createEvent<{ id: string; standCode: string }>();
+export const standChanged = createEvent<{ id: number; standCode: string }>();
 
 export const $serversView = combine(
   mockServerModel.$servers,

@@ -73,7 +73,7 @@ return customFetch<StandResponseDto>(getStandsControllerCreateUrl(),
 );}
 
 
-export const getStandsControllerFindOneUrl = (id: string,) => {
+export const getStandsControllerFindOneUrl = (id: number,) => {
 
 
 
@@ -84,7 +84,7 @@ export const getStandsControllerFindOneUrl = (id: string,) => {
 /**
  * @summary Получить стенд по id
  */
-export const standsControllerFindOne = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<StandResponseDto> => {
+export const standsControllerFindOne = async (id: number, options?: Parameters<typeof customFetch>[1]): Promise<StandResponseDto> => {
 
   return customFetch<StandResponseDto>(getStandsControllerFindOneUrl(id),
   {
@@ -96,7 +96,7 @@ export const standsControllerFindOne = async (id: string, options?: Parameters<t
 );}
 
 
-export const getStandsControllerUpdateUrl = (id: string,) => {
+export const getStandsControllerUpdateUrl = (id: number,) => {
 
 
 
@@ -107,7 +107,7 @@ export const getStandsControllerUpdateUrl = (id: string,) => {
 /**
  * @summary Обновить стенд
  */
-export const standsControllerUpdate = async (id: string,
+export const standsControllerUpdate = async (id: number,
     updateStandDto: UpdateStandDto, options?: Parameters<typeof customFetch>[1]): Promise<StandResponseDto> => {
 
     const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
@@ -134,7 +134,7 @@ return customFetch<StandResponseDto>(getStandsControllerUpdateUrl(id),
 );}
 
 
-export const getStandsControllerRemoveUrl = (id: string,) => {
+export const getStandsControllerRemoveUrl = (id: number,) => {
 
 
 
@@ -145,7 +145,7 @@ export const getStandsControllerRemoveUrl = (id: string,) => {
 /**
  * @summary Удалить стенд
  */
-export const standsControllerRemove = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const standsControllerRemove = async (id: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getStandsControllerRemoveUrl(id),
   {

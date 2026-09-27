@@ -5,7 +5,6 @@
  * API сервиса Smart Mock Proxy: mock-ответы и проксирование на стенды
  * OpenAPI spec version: 0.1.0
  */
-import type { UpdateMockRuleDto as __UpdateMockRuleDto } from './updateMockRuleDto';
 import type { UpdateMockRuleDtoMethod } from './updateMockRuleDtoMethod';
 import type { UpdateMockRuleDtoResponseBody } from './updateMockRuleDtoResponseBody';
 import type { UpdateMockRuleDtoResponseHeaders } from './updateMockRuleDtoResponseHeaders';
@@ -24,13 +23,7 @@ export interface UpdateMockRuleDto {
   /** Обязателен для INLINE_JSON */
   responseBody?: UpdateMockRuleDtoResponseBody;
   /** ID существующего файла того же мок-сервера (для FILE) */
-  responseFileId?: string;
+  responseFileId?: number;
   /** Дополнительные заголовки ответа */
   responseHeaders?: UpdateMockRuleDtoResponseHeaders;
 }
-
-export type UpdateMockRuleDto = __UpdateMockRuleDto | {
-  /** JSON UpdateMockRuleDto */
-  data: string;
-  file?: Blob | File;
-};

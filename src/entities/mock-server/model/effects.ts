@@ -18,7 +18,7 @@ export const fetchServersFx = createEffect<void, MockServerResponseDto[]>(() =>
   mockServersControllerFindAll(),
 );
 
-export const fetchServerFx = createEffect<string, MockServerResponseDto>((id) =>
+export const fetchServerFx = createEffect<number, MockServerResponseDto>((id) =>
   mockServersControllerFindOne(id),
 );
 
@@ -32,7 +32,7 @@ export const updateServerFx = createEffect<
   MockServerResponseDto
 >(({ id, data }) => mockServersControllerUpdate(id, data));
 
-export const removeServerFx = createEffect<string, string>(async (id) => {
+export const removeServerFx = createEffect<number, number>(async (id) => {
   await mockServersControllerRemove(id);
   return id;
 });

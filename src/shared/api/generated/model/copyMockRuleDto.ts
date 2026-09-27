@@ -8,5 +8,5 @@
 
 export interface CopyMockRuleDto {
   /** ID целевого мок-сервера текущего пользователя */
-  targetMockServerId: string;
+  targetMockServerId: number;
 }

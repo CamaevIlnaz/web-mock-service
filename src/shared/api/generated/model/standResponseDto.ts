@@ -7,7 +7,7 @@
  */
 
 export interface StandResponseDto {
-  id: string;
+  id: number;
   code: string;
   name: string;
   domain: string;

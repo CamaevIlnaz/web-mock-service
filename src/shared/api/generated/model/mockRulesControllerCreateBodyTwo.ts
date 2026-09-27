@@ -5,10 +5,9 @@
  * API сервиса Smart Mock Proxy: mock-ответы и проксирование на стенды
  * OpenAPI spec version: 0.1.0
  */
-import type { UpdateMockRuleDto } from './updateMockRuleDto';
 
-export type MockRulesControllerUpdateBodyOne = UpdateMockRuleDto | {
-  /** JSON UpdateMockRuleDto */
+export type MockRulesControllerCreateBodyTwo = {
+  /** JSON CreateMockRuleDto */
   data: string;
-  file?: Blob;
+  file?: Blob | File;
 };

@@ -2,7 +2,7 @@ import type { MockServerResponseDto } from '@/entities/mock-server';
 import type { StandResponseDto } from '@/entities/stand';
 
 export interface ServerViewItem {
-  id: string;
+  id: number;
   name: string;
   rulesCount: number;
   standCode: string;
@@ -20,7 +20,7 @@ export interface StandOption {
 export interface ServersTableProps {
   servers: ServerViewItem[];
   standOptions: StandOption[];
-  onStandChange: (serverId: string, standCode: string) => void;
+  onStandChange: (serverId: number, standCode: string) => void;
   onCopyCommand: (command: string) => void;
   onDelete: (server: MockServerResponseDto) => void;
 }
