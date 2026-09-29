@@ -41,8 +41,21 @@ export const customFetch = async <T>(
   url: string,
   options: RequestInit,
 ): Promise<T> => {
+  const headers = new Headers(options.headers);
+
+  // Orval отдаёт JSON как string без Content-Type. Для эндпоинтов с
+  // application/json | multipart без заголовка бэкенд отвечает 400.
+  // FormData не трогаем — boundary выставит браузер.
+  if (
+    typeof options.body === 'string' &&
+    !headers.has('Content-Type')
+  ) {
+    headers.set('Content-Type', 'application/json');
+  }
+
   const response = await fetch(resolveUrl(url), {
     ...options,
+    headers,
     credentials: 'include',
   });
 
