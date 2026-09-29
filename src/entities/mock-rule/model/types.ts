@@ -1,4 +1,5 @@
 import type {
+  CreateMockRuleDto,
   MockRuleResponseDto,
   MockRulesControllerFindAllMethod,
   MockRulesControllerFindAllParams,
@@ -7,6 +8,7 @@ import type {
 } from '@/shared/api/generated/model';
 
 export type {
+  CreateMockRuleDto,
   MockRuleResponseDto,
   MockRulesControllerFindAllMethod,
   MockRulesControllerFindAllParams,
@@ -26,10 +28,17 @@ export interface FetchRulesParams {
   mode: FetchRulesMode;
 }
 
+export interface CreateRuleParams {
+  mockServerId: number;
+  data: CreateMockRuleDto;
+  file?: File;
+}
+
 export interface UpdateRuleParams {
   mockServerId: number;
   id: number;
   data: UpdateMockRuleDto;
+  file?: File;
 }
 
 export interface RemoveRuleParams {

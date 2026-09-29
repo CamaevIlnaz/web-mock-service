@@ -34,12 +34,16 @@ import { MethodBadge } from './MethodBadge';
 
 interface SortableRuleRowProps {
   rule: MockRuleResponseDto;
+  isSelected: boolean;
+  onSelect: (rule: MockRuleResponseDto) => void;
   onToggle: (id: number, isEnabled: boolean) => void;
   onDelete: (rule: MockRuleResponseDto) => void;
 }
 
 const SortableRuleRow = ({
   rule,
+  isSelected,
+  onSelect,
   onToggle,
   onDelete,
 }: SortableRuleRowProps) => {
@@ -62,9 +66,12 @@ const SortableRuleRow = ({
         transition,
       }}
       opacity={isDragging ? 0.7 : 1}
-      bg={isDragging ? 'brandSoft' : undefined}
+      bg={isDragging || isSelected ? 'brandSoft' : undefined}
       zIndex={isDragging ? 1 : undefined}
       position="relative"
+      cursor="pointer"
+      onClick={() => onSelect(rule)}
+      _hover={isSelected ? undefined : { bg: 'panelAlt' }}
     >
       <Table.Cell borderColor="border" py="3" verticalAlign="middle" w="40px">
         <IconButton
@@ -73,6 +80,7 @@ const SortableRuleRow = ({
           size="xs"
           color="muted"
           cursor="grab"
+          onClick={(event) => event.stopPropagation()}
           {...attributes}
           {...listeners}
         >
@@ -80,7 +88,12 @@ const SortableRuleRow = ({
         </IconButton>
       </Table.Cell>
 
-      <Table.Cell borderColor="border" py="3" verticalAlign="middle">
+      <Table.Cell
+        borderColor="border"
+        py="3"
+        verticalAlign="middle"
+        onClick={(event) => event.stopPropagation()}
+      >
         <Switch.Root
           checked={rule.isEnabled}
           onCheckedChange={(details) => onToggle(rule.id, details.checked)}
@@ -132,7 +145,12 @@ const SortableRuleRow = ({
         </Badge>
       </Table.Cell>
 
-      <Table.Cell borderColor="border" py="3" verticalAlign="middle">
+      <Table.Cell
+        borderColor="border"
+        py="3"
+        verticalAlign="middle"
+        onClick={(event) => event.stopPropagation()}
+      >
         <IconButton
           aria-label="Удалить"
           variant="ghost"
@@ -150,6 +168,8 @@ const SortableRuleRow = ({
 
 export const RulesTable = ({
   rules,
+  selectedRuleId = null,
+  onSelect,
   onToggle,
   onDelete,
   onReorder,
@@ -221,6 +241,8 @@ export const RulesTable = ({
               <SortableRuleRow
                 key={rule.id}
                 rule={rule}
+                isSelected={selectedRuleId === rule.id}
+                onSelect={onSelect}
                 onToggle={onToggle}
                 onDelete={onDelete}
               />

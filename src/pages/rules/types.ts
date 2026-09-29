@@ -16,6 +16,8 @@ export interface RulesFiltersProps {
 
 export interface RulesTableProps {
   rules: MockRuleResponseDto[];
+  selectedRuleId?: number | null;
+  onSelect: (rule: MockRuleResponseDto) => void;
   onToggle: (id: number, isEnabled: boolean) => void;
   onDelete: (rule: MockRuleResponseDto) => void;
   onReorder: (orderedIds: number[]) => void;

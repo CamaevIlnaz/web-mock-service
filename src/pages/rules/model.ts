@@ -8,6 +8,7 @@ import {
   type MockRulesControllerFindAllMethod,
 } from '@/entities/mock-rule';
 import { chainAuthorized } from '@/entities/session';
+import { configureMockRuleModel } from '@/features/configure-mock-rule';
 import { notifyErrorFx } from '@/shared/ui';
 
 import { PAGE_SIZE } from './constants';
@@ -129,6 +130,11 @@ sample({
     return servers[0]!.id;
   },
   target: serverSelected,
+});
+
+sample({
+  clock: serverSelected,
+  target: configureMockRuleModel.panelClosed,
 });
 
 sample({

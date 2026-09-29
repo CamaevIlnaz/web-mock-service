@@ -1,5 +1,7 @@
 export { mockRuleModel } from './model';
 export type {
+  CreateMockRuleDto,
+  CreateRuleParams,
   FetchRulesMode,
   FetchRulesParams,
   MockRuleResponseDto,

@@ -1,18 +1,60 @@
 import { createEffect } from 'effector';
 
 import {
+  getMockRulesControllerCreateUrl,
+  getMockRulesControllerUpdateUrl,
+  mockRulesControllerCreate,
   mockRulesControllerFindAll,
   mockRulesControllerRemove,
   mockRulesControllerUpdate,
 } from '@/shared/api/generated/mock-rules/mock-rules';
+import { customFetch } from '@/shared/api/http-client';
 
 import type {
+  CreateRuleParams,
   FetchRulesParams,
   MockRuleResponseDto,
   PaginatedMockRulesResponseDto,
   RemoveRuleParams,
   UpdateRuleParams,
 } from './types';
+
+const createRuleWithFile = (
+  mockServerId: number,
+  data: CreateRuleParams['data'],
+  file: File,
+) => {
+  const formData = new FormData();
+  formData.append('data', JSON.stringify(data));
+  formData.append('file', file);
+
+  return customFetch<MockRuleResponseDto>(
+    getMockRulesControllerCreateUrl(mockServerId),
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
+};
+
+const updateRuleWithFile = (
+  mockServerId: number,
+  id: number,
+  data: UpdateRuleParams['data'],
+  file: File,
+) => {
+  const formData = new FormData();
+  formData.append('data', JSON.stringify(data));
+  formData.append('file', file);
+
+  return customFetch<MockRuleResponseDto>(
+    getMockRulesControllerUpdateUrl(mockServerId, id),
+    {
+      method: 'PATCH',
+      body: formData,
+    },
+  );
+};
 
 export const fetchRulesFx = createEffect<
   FetchRulesParams,
@@ -29,12 +71,27 @@ export const fetchRulesFx = createEffect<
   return { ...response, mode };
 });
 
+export const createRuleFx = createEffect<
+  CreateRuleParams,
+  MockRuleResponseDto
+>(({ mockServerId, data, file }) => {
+  if (file) {
+    return createRuleWithFile(mockServerId, data, file);
+  }
+
+  return mockRulesControllerCreate(mockServerId, data);
+});
+
 export const updateRuleFx = createEffect<
   UpdateRuleParams,
   MockRuleResponseDto
->(({ mockServerId, id, data }) =>
-  mockRulesControllerUpdate(mockServerId, id, data),
-);
+>(({ mockServerId, id, data, file }) => {
+  if (file) {
+    return updateRuleWithFile(mockServerId, id, data, file);
+  }
+
+  return mockRulesControllerUpdate(mockServerId, id, data);
+});
 
 export const removeRuleFx = createEffect<RemoveRuleParams, number>(
   async ({ mockServerId, id }) => {

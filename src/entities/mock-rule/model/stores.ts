@@ -1,12 +1,14 @@
 import { combine, createEvent, createStore, sample } from 'effector';
 
 import {
+  createRuleFx,
   fetchRulesFx,
   removeRuleFx,
   reorderRulesFx,
   updateRuleFx,
 } from './effects';
 import type {
+  CreateRuleParams,
   FetchRulesParams,
   MockRuleResponseDto,
   RemoveRuleParams,
@@ -15,6 +17,7 @@ import type {
 } from './types';
 
 export const rulesRequested = createEvent<FetchRulesParams>();
+export const ruleCreated = createEvent<CreateRuleParams>();
 export const ruleUpdated = createEvent<UpdateRuleParams>();
 export const ruleRemoved = createEvent<RemoveRuleParams>();
 export const rulesReordered = createEvent<ReorderRulesParams>();
@@ -74,6 +77,7 @@ $rules
       ? [...rules, ...response.items]
       : response.items,
   )
+  .on(createRuleFx.doneData, (rules, created) => [...rules, created])
   .on(updateRuleFx.doneData, (rules, updated) =>
     rules.map((rule) => (rule.id === updated.id ? updated : rule)),
   )
@@ -93,11 +97,13 @@ $totalPages
 
 $total
   .on(fetchRulesFx.doneData, (_, response) => response.total)
+  .on(createRuleFx.done, (total) => total + 1)
   .on(removeRuleFx.done, (total) => Math.max(0, total - 1))
   .reset(rulesReset);
 
 $rulesError
   .on(fetchRulesFx.failData, (_, error) => error.message)
+  .on(createRuleFx.failData, (_, error) => error.message)
   .on(updateRuleFx.failData, (_, error) => error.message)
   .on(removeRuleFx.failData, (_, error) => error.message)
   .on(reorderRulesFx.failData, (_, error) => error.message)
@@ -107,6 +113,11 @@ $rulesError
 sample({
   clock: rulesRequested,
   target: fetchRulesFx,
+});
+
+sample({
+  clock: ruleCreated,
+  target: createRuleFx,
 });
 
 sample({

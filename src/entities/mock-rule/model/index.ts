@@ -1,4 +1,5 @@
 import {
+  createRuleFx,
   fetchRulesFx,
   removeRuleFx,
   reorderRulesFx,
@@ -14,6 +15,7 @@ import {
   $rulesError,
   $total,
   $totalPages,
+  ruleCreated,
   ruleRemoved,
   rulesRequested,
   rulesReset,
@@ -32,17 +34,21 @@ export const mockRuleModel = {
   $isLoadingMore,
   $hasMore,
   rulesRequested,
+  ruleCreated,
   ruleUpdated,
   ruleRemoved,
   rulesReordered,
   rulesReset,
   fetchRulesFx,
+  createRuleFx,
   updateRuleFx,
   removeRuleFx,
   reorderRulesFx,
 };
 
 export type {
+  CreateMockRuleDto,
+  CreateRuleParams,
   FetchRulesMode,
   FetchRulesParams,
   MockRuleResponseDto,

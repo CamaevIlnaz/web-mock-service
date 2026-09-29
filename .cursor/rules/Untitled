@@ -1,0 +1,5 @@
+description: Styling priority rules frontend with Chakra UI
+globs:
+  - "src/**/*.tsx"
+alwaysApply: false
+---
