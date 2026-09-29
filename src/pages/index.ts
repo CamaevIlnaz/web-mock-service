@@ -1,5 +1,6 @@
 import { ServersPage, serversRoute } from './servers';
 import { RulesPage, rulesRoute } from './rules';
+import { FilesPage, filesRoute } from './files';
 import { BpmPage, bpmRoute } from './bpm';
 import { DocumentationPage, documentationRoute } from './documentation';
 import { SettingsPage, settingsRoute } from './settings';
@@ -21,7 +22,11 @@ export const routes = [
     route: rulesRoute,
     view: RulesPage,
   },
-
+  {
+    path: '/files',
+    route: filesRoute,
+    view: FilesPage,
+  },
   {
     path: '/bpm',
     route: bpmRoute,

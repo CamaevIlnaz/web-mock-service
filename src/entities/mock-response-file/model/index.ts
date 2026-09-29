@@ -1,8 +1,14 @@
-import { fetchResponseFilesFx } from './effects';
+import {
+  downloadResponseFileFx,
+  fetchResponseFilesFx,
+  removeResponseFileFx,
+} from './effects';
 import {
   $files,
   $filesError,
   $isFilesLoading,
+  fileDownloadRequested,
+  fileRemoved,
   filesRequested,
   filesReset,
 } from './stores';
@@ -13,7 +19,15 @@ export const mockResponseFileModel = {
   $isFilesLoading,
   filesRequested,
   filesReset,
+  fileRemoved,
+  fileDownloadRequested,
   fetchResponseFilesFx,
+  removeResponseFileFx,
+  downloadResponseFileFx,
 };
 
-export type { MockResponseFileMetaDto } from './types';
+export type {
+  DownloadResponseFileParams,
+  MockResponseFileMetaDto,
+  RemoveResponseFileParams,
+} from './types';

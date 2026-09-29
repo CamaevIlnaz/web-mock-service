@@ -1,2 +1,6 @@
 export { mockResponseFileModel } from './model';
-export type { MockResponseFileMetaDto } from './model';
+export type {
+  DownloadResponseFileParams,
+  MockResponseFileMetaDto,
+  RemoveResponseFileParams,
+} from './model';
