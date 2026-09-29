@@ -66,12 +66,16 @@ export const FormSelect = <TFieldValues extends FieldValues>({
       >
         <NativeSelect.Field
           {...register(name)}
-          placeholder={placeholder}
           required={false}
           aria-required={required || undefined}
           bg="panel"
           borderColor="border"
         >
+          {placeholder ? (
+            <option value="" disabled={required}>
+              {placeholder}
+            </option>
+          ) : null}
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

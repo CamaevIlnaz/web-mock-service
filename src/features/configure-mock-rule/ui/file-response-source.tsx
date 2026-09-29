@@ -117,6 +117,7 @@ export const FileResponseSource = ({
                           name="responseFileId"
                           label="Файл"
                           options={fileOptions}
+                          placeholder="Выберите файл"
                           helperText="Файлы текущего мок-сервера"
                           required
                         />

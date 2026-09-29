@@ -135,7 +135,9 @@ export const toFormValues = (
     isEnabled: rule.isEnabled,
     responseType: rule.responseType,
     responseBody: formatResponseBody(rule.responseBody),
-    fileMode: rule.responseFileId != null ? 'existing' : 'upload',
+    // По умолчанию «Выбрать существующий» (как в дизайне); если файлов нет —
+    // панель переключит на upload.
+    fileMode: 'existing',
     responseFileId:
       rule.responseFileId != null ? String(rule.responseFileId) : '',
   };
