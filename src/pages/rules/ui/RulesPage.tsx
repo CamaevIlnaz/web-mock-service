@@ -7,6 +7,7 @@ import {
   ConfigureMockRulePanel,
   configureMockRuleModel,
 } from '@/features/configure-mock-rule';
+import { copyMockRuleModel } from '@/features/copy-mock-rule';
 import {
   DeleteMockRuleDialog,
   deleteMockRuleModel,
@@ -46,12 +47,14 @@ export const RulesPage = () => {
     hasMore,
     isLoadingMore,
     selectedRuleId,
+    isCopying,
     selectServer,
     changeSearch,
     changeMethod,
     changeOnlyEnabled,
     toggleRule,
     reorderRules,
+    copyRule,
     openDelete,
     requestLoadMore,
     openCreate,
@@ -67,12 +70,14 @@ export const RulesPage = () => {
     mockRuleModel.$hasMore,
     mockRuleModel.$isLoadingMore,
     configureMockRuleModel.$selectedRuleId,
+    copyMockRuleModel.$isCopying,
     serverSelected,
     searchChanged,
     methodChanged,
     onlyEnabledChanged,
     ruleToggled,
     ruleOrderChanged,
+    copyMockRuleModel.copyRequested,
     deleteMockRuleModel.dialogOpened,
     loadMore,
     configureMockRuleModel.createOpened,
@@ -162,12 +167,14 @@ export const RulesPage = () => {
               <RulesTable
                 rules={rules}
                 selectedRuleId={selectedRuleId}
+                isCopying={isCopying}
                 onSelect={(rule) => {
                   if (selectedServerId !== null) {
                     openEdit({ mockServerId: selectedServerId, rule });
                   }
                 }}
                 onToggle={(id, isEnabled) => toggleRule({ id, isEnabled })}
+                onCopy={copyRule}
                 onDelete={openDelete}
                 onReorder={reorderRules}
               />

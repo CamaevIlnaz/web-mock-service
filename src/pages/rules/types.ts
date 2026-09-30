@@ -17,8 +17,10 @@ export interface RulesFiltersProps {
 export interface RulesTableProps {
   rules: MockRuleResponseDto[];
   selectedRuleId?: number | null;
+  isCopying?: boolean;
   onSelect: (rule: MockRuleResponseDto) => void;
   onToggle: (id: number, isEnabled: boolean) => void;
+  onCopy: (rule: MockRuleResponseDto) => void;
   onDelete: (rule: MockRuleResponseDto) => void;
   onReorder: (orderedIds: number[]) => void;
 }

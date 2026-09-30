@@ -23,7 +23,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, Trash2 } from 'lucide-react';
+import { Copy, GripVertical, Trash2 } from 'lucide-react';
 
 import type { MockRuleResponseDto } from '@/entities/mock-rule';
 
@@ -35,16 +35,20 @@ import { MethodBadge } from './MethodBadge';
 interface SortableRuleRowProps {
   rule: MockRuleResponseDto;
   isSelected: boolean;
+  isCopying: boolean;
   onSelect: (rule: MockRuleResponseDto) => void;
   onToggle: (id: number, isEnabled: boolean) => void;
+  onCopy: (rule: MockRuleResponseDto) => void;
   onDelete: (rule: MockRuleResponseDto) => void;
 }
 
 const SortableRuleRow = ({
   rule,
   isSelected,
+  isCopying,
   onSelect,
   onToggle,
+  onCopy,
   onDelete,
 }: SortableRuleRowProps) => {
   const {
@@ -151,16 +155,29 @@ const SortableRuleRow = ({
         verticalAlign="middle"
         onClick={(event) => event.stopPropagation()}
       >
-        <IconButton
-          aria-label="Удалить"
-          variant="ghost"
-          size="xs"
-          color="muted"
-          cursor="pointer"
-          onClick={() => onDelete(rule)}
-        >
-          <Trash2 size={16} strokeWidth={1.75} />
-        </IconButton>
+        <Flex align="center" gap="1">
+          <IconButton
+            aria-label="Копировать"
+            variant="ghost"
+            size="xs"
+            color="muted"
+            cursor="pointer"
+            disabled={isCopying}
+            onClick={() => onCopy(rule)}
+          >
+            <Copy size={16} strokeWidth={1.75} />
+          </IconButton>
+          <IconButton
+            aria-label="Удалить"
+            variant="ghost"
+            size="xs"
+            color="muted"
+            cursor="pointer"
+            onClick={() => onDelete(rule)}
+          >
+            <Trash2 size={16} strokeWidth={1.75} />
+          </IconButton>
+        </Flex>
       </Table.Cell>
     </Table.Row>
   );
@@ -169,8 +186,10 @@ const SortableRuleRow = ({
 export const RulesTable = ({
   rules,
   selectedRuleId = null,
+  isCopying = false,
   onSelect,
   onToggle,
+  onCopy,
   onDelete,
   onReorder,
 }: RulesTableProps) => {
@@ -242,8 +261,10 @@ export const RulesTable = ({
                 key={rule.id}
                 rule={rule}
                 isSelected={selectedRuleId === rule.id}
+                isCopying={isCopying}
                 onSelect={onSelect}
                 onToggle={onToggle}
+                onCopy={onCopy}
                 onDelete={onDelete}
               />
             ))}

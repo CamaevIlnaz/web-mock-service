@@ -12,7 +12,7 @@ export const RULES_TABLE_COLUMNS: RulesTableColumn[] = [
   { id: 'name', label: 'Название', width: '22%' },
   { id: 'methodUrl', label: 'Метод / URL' },
   { id: 'response', label: 'Ответ', width: '140px' },
-  { id: 'actions', label: '', width: '48px' },
+  { id: 'actions', label: '', width: '88px' },
 ];
 
 export const METHOD_FILTER_OPTIONS: Array<{ value: string; label: string }> = [
