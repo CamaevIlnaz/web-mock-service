@@ -1,7 +1,8 @@
 import { ServersPage, serversRoute } from './servers';
 import { RulesPage, rulesRoute } from './rules';
 import { FilesPage, filesRoute } from './files';
-import { BpmPage, bpmRoute } from './bpm';
+// TODO: временно скрыто
+// import { BpmPage, bpmRoute } from './bpm';
 import { DocumentationPage, documentationRoute } from './documentation';
 import { SettingsPage, settingsRoute } from './settings';
 import { NotFoundPage, notFoundRoute } from './not-found';
@@ -27,11 +28,12 @@ export const routes = [
     route: filesRoute,
     view: FilesPage,
   },
-  {
-    path: '/bpm',
-    route: bpmRoute,
-    view: BpmPage,
-  },
+  // TODO: временно скрыто
+  // {
+  //   path: '/bpm',
+  //   route: bpmRoute,
+  //   view: BpmPage,
+  // },
   {
     path: '/settings',
     route: settingsRoute,

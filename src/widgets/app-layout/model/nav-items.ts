@@ -1,11 +1,4 @@
-import { type LucideIcon } from 'lucide-react';
-import {
-  BookOpen,
-  Code2,
-  Database,
-  File,
-  Settings,
-} from 'lucide-react';
+import { type LucideIcon, BookOpen, Code2, Database, File, Settings } from 'lucide-react';
 import { type RouteInstance, type RouteParams } from 'atomic-router';
 
 import { routes } from '@/app/router';
