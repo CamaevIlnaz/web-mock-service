@@ -115,11 +115,38 @@ sample({
   target: mockServerModel.serversRequested,
 });
 
+const parseServerIdFromQuery = (query: Record<string, unknown>): number | null => {
+  const raw = query.serverId;
+  const value = typeof raw === 'string' || typeof raw === 'number' ? Number(raw) : NaN;
+
+  return Number.isFinite(value) ? value : null;
+};
+
+sample({
+  clock: [rulesAuthRoute.opened, rulesAuthRoute.updated],
+  filter: ({ query }) => parseServerIdFromQuery(query) !== null,
+  fn: ({ query }) => parseServerIdFromQuery(query)!,
+  target: serverSelected,
+});
+
 sample({
   clock: mockServerModel.fetchServersFx.doneData,
-  source: $selectedServerId,
-  filter: (_, servers) => servers.length > 0,
-  fn: (selectedId, servers) => {
+  source: {
+    selectedId: $selectedServerId,
+    query: rulesRoute.$query,
+    isOpened: rulesAuthRoute.$isOpened,
+  },
+  filter: ({ isOpened }, servers) => isOpened && servers.length > 0,
+  fn: ({ selectedId, query }, servers) => {
+    const queryServerId = parseServerIdFromQuery(query);
+
+    if (
+      queryServerId !== null &&
+      servers.some((server) => server.id === queryServerId)
+    ) {
+      return queryServerId;
+    }
+
     if (
       selectedId !== null &&
       servers.some((server) => server.id === selectedId)

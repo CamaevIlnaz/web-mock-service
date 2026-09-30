@@ -1,16 +1,17 @@
 import {
   Box,
-  Circle,
   Flex,
   IconButton,
   Input,
   InputGroup,
   NativeSelect,
-  Switch,
   Table,
   Text,
 } from '@chakra-ui/react';
+import { Link } from 'atomic-router-react';
 import { Copy, ExternalLink, Trash2 } from 'lucide-react';
+
+import { rulesRoute } from '@/pages/rules';
 
 import type { ServersTableProps } from '../types';
 import { formatRulesCount } from '../lib';
@@ -122,29 +123,21 @@ export const ServersTable = ({
             </Table.Cell>
 
             <Table.Cell borderColor="border" py="4" verticalAlign="middle">
-              <Flex align="center" gap="3">
-                <Flex align="center" gap="2" minW="100px">
-                  <Circle size="8px" bg="green.500" />
-                  <Text fontSize="sm" color="text">
-                    Включены
-                  </Text>
-                </Flex>
-
-                <Switch.Root checked colorPalette="blue" size="sm">
-                  <Switch.HiddenInput />
-                  <Switch.Control>
-                    <Switch.Thumb />
-                  </Switch.Control>
-                </Switch.Root>
-
+              <Flex align="center" justify="flex-end" gap="1">
                 <IconButton
-                  aria-label="Открыть"
+                  asChild
+                  aria-label="Открыть запросы"
                   variant="ghost"
                   size="xs"
                   color="muted"
-                  pointerEvents="none"
+                  cursor="pointer"
                 >
-                  <ExternalLink size={16} strokeWidth={1.75} />
+                  <Link
+                    to={rulesRoute}
+                    query={{ serverId: String(server.id) }}
+                  >
+                    <ExternalLink size={16} strokeWidth={1.75} />
+                  </Link>
                 </IconButton>
 
                 <IconButton
