@@ -1,7 +1,23 @@
-import { Box, Code, Heading, List, Text, VStack } from '@chakra-ui/react';
+import { Box, Code, Heading, List, Table, Text, VStack } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 
 import { Title } from '@/shared/ui';
+
+interface MaskMatchExample {
+  request: string;
+  result: string;
+}
+
+const PRODUCT_MASK_EXAMPLES: MaskMatchExample[] = [
+  { request: '/api/products/42', result: 'мок' },
+  {
+    request: '/api/products/42/',
+    result: 'мок (слэш в конце не учитывается)',
+  },
+  { request: '/api/products/42?full=1', result: 'мок (query не учитывается)' },
+  { request: '/api/products', result: 'стенд (нет сегмента для :id)' },
+  { request: '/api/products/42/reviews', result: 'стенд (лишний сегмент)' },
+];
 
 const Section = ({
   title,
@@ -97,7 +113,7 @@ export const DocumentationPage = () => {
                 Маски URL: <Code fontSize="xs">*</Code>,{' '}
                 <Code fontSize="xs">**</Code>,{' '}
                 <Code fontSize="xs">:param</Code> — например{' '}
-                <Code fontSize="xs">/api/products/:id</Code>.
+                <Code fontSize="xs">/products/:id</Code>.
               </>,
               <>Ответ — inline JSON или файл.</>,
               <>Статус, задержка, включение/выключение без удаления.</>,
@@ -107,6 +123,67 @@ export const DocumentationPage = () => {
               </>,
             ]}
           />
+        </Section>
+
+        <Section title="Пример: правило /products/:id">
+          <Paragraph>Чтобы правило сработало, нужно четыре условия:</Paragraph>
+          <BulletList
+            items={[
+              <>
+                <Text as="span" fontWeight="semibold" color="heading">Маска без /api.</Text> Нужна именно{' '}
+                <Code fontSize="xs">/products/:id</Code>: webpack отрезает{' '}
+                <Code fontSize="xs">/api</Code> до того, как запрос приходит в
+                сервис. Правила с маской{' '}
+                <Code fontSize="xs">/api/products/:id</Code> не сработают, эти
+                запросы уйдут на стенд.
+              </>,
+              <>
+                <Text as="span" fontWeight="semibold" color="heading">Совпадает метод.</Text> Если в правиле{' '}
+                <Code fontSize="xs">GET</Code>, то{' '}
+                <Code fontSize="xs">POST /products/42</Code> уйдёт на стенд.
+              </>,
+              <>
+                <Text as="span" fontWeight="semibold" color="heading">Правило включено</Text> (
+                <Code fontSize="xs">isEnabled: true</Code>).
+              </>,
+              <>
+                <Text as="span" fontWeight="semibold" color="heading">Нет правила раньше в очереди.</Text> Если у другого правила с
+                подходящей маской <Code fontSize="xs">priority</Code> меньше,
+                сработает оно.
+              </>,
+            ]}
+          />
+          <Paragraph>
+            Какие пути подходят под <Code fontSize="xs">/products/:id</Code>:
+          </Paragraph>
+          <Table.Root size="sm" variant="outline">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader color="muted" fontSize="xs">
+                  Запрос с фронта
+                </Table.ColumnHeader>
+                <Table.ColumnHeader color="muted" fontSize="xs">
+                  Что произойдёт
+                </Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {PRODUCT_MASK_EXAMPLES.map((example) => (
+                <Table.Row key={example.request}>
+                  <Table.Cell borderColor="border">
+                    <Code fontSize="xs">{example.request}</Code>
+                  </Table.Cell>
+                  <Table.Cell borderColor="border" fontSize="sm" color="text">
+                    {example.result}
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+          <Paragraph>
+            Если нужно ловить и вложенные пути, используйте{' '}
+            <Code fontSize="xs">/products/*</Code>.
+          </Paragraph>
         </Section>
 
         <Section title="Что происходит с запросом">
