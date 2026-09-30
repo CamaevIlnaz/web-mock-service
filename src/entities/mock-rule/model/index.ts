@@ -1,4 +1,22 @@
 import {
+  copyCatalogRuleFx,
+  fetchCatalogRulesFx,
+} from './catalog-effects';
+import {
+  $catalogFetchMode,
+  $catalogHasMore,
+  $catalogPage,
+  $catalogRules,
+  $catalogRulesError,
+  $catalogTotal,
+  $catalogTotalPages,
+  $isCatalogLoadingMore,
+  $isCatalogRulesLoading,
+  catalogRuleCopyRequested,
+  catalogRulesRequested,
+  catalogRulesReset,
+} from './catalog-stores';
+import {
   createRuleFx,
   fetchRulesFx,
   removeRuleFx,
@@ -44,7 +62,31 @@ export const mockRuleModel = {
   updateRuleFx,
   removeRuleFx,
   reorderRulesFx,
+  $catalogRules,
+  $catalogPage,
+  $catalogTotalPages,
+  $catalogTotal,
+  $catalogFetchMode,
+  $catalogRulesError,
+  $isCatalogRulesLoading,
+  $isCatalogLoadingMore,
+  $catalogHasMore,
+  catalogRulesRequested,
+  catalogRuleCopyRequested,
+  catalogRulesReset,
+  fetchCatalogRulesFx,
+  copyCatalogRuleFx,
 };
+
+export type {
+  CatalogMockRuleResponseDto,
+  CopyCatalogRuleParams,
+  FetchCatalogRulesMode,
+  FetchCatalogRulesParams,
+  MockRulesCatalogControllerFindAllCatalogMethod,
+  MockRulesCatalogControllerFindAllCatalogParams,
+  PaginatedCatalogMockRulesResponseDto,
+} from './catalog-types';
 
 export type {
   CreateMockRuleDto,

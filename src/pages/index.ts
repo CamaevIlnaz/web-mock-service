@@ -1,5 +1,6 @@
 import { ServersPage, serversRoute } from './servers';
 import { RulesPage, rulesRoute } from './rules';
+import { RulesCatalogPage, rulesCatalogRoute } from './rules-catalog';
 import { FilesPage, filesRoute } from './files';
 // TODO: временно скрыто
 // import { BpmPage, bpmRoute } from './bpm';
@@ -22,6 +23,11 @@ export const routes = [
     path: '/rules',
     route: rulesRoute,
     view: RulesPage,
+  },
+  {
+    path: '/rules-catalog',
+    route: rulesCatalogRoute,
+    view: RulesCatalogPage,
   },
   {
     path: '/files',
