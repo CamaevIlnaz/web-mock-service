@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 
+import { SidebarFooter } from './SidebarFooter';
 import { SidebarHeader } from './SidebarHeader';
 import { SidebarNav } from './SidebarNav';
 
@@ -19,6 +20,7 @@ export function Sidebar() {
     >
       <SidebarHeader />
       <SidebarNav />
+      <SidebarFooter />
     </Flex>
   );
 }

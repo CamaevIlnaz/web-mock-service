@@ -31,5 +31,10 @@ export const navItems: NavItem[] = [
     icon: Settings,
     adminOnly: true,
   },
-  { route: routes.documentation, label: 'Документация', icon: BookOpen },
 ];
+
+export const documentationNavItem: NavItem = {
+  route: routes.documentation,
+  label: 'Документация',
+  icon: BookOpen,
+};

@@ -6,8 +6,19 @@ import {
   authControllerMe,
   authControllerRegister,
 } from '@/shared/api/generated/auth/auth';
+import {
+  usersControllerChangePassword,
+  usersControllerUpdateProfile,
+  usersControllerUploadAvatar,
+} from '@/shared/api/generated/users/users';
 
-import type { AuthUserResponseDto, LoginDto, RegisterPayload } from './types';
+import type {
+  AuthUserResponseDto,
+  ChangePasswordDto,
+  LoginDto,
+  RegisterPayload,
+  UpdateProfileDto,
+} from './types';
 
 export const meFx = createEffect<void, AuthUserResponseDto>(() =>
   authControllerMe(),
@@ -22,3 +33,16 @@ export const registerFx = createEffect<RegisterPayload, AuthUserResponseDto>(
 );
 
 export const logoutFx = createEffect<void, void>(() => authControllerLogout());
+
+export const updateProfileFx = createEffect<
+  UpdateProfileDto,
+  AuthUserResponseDto
+>((dto) => usersControllerUpdateProfile(dto));
+
+export const changePasswordFx = createEffect<ChangePasswordDto, void>(
+  (dto) => usersControllerChangePassword(dto),
+);
+
+export const uploadAvatarFx = createEffect<File, AuthUserResponseDto>(
+  (avatar) => usersControllerUploadAvatar({ avatar }),
+);

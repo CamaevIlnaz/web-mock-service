@@ -1,9 +1,11 @@
 import type {
   AuthUserResponseDto,
+  ChangePasswordDto,
   LoginDto,
+  UpdateProfileDto,
 } from '@/shared/api/generated/model';
 
-export type { AuthUserResponseDto, LoginDto };
+export type { AuthUserResponseDto, ChangePasswordDto, LoginDto, UpdateProfileDto };
 
 export type AuthStatus = 'pending' | 'anonymous' | 'authenticated';
 

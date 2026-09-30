@@ -7,6 +7,7 @@ import { filesRoute } from '@/pages/files';
 // import { bpmRoute } from '@/pages/bpm';
 import { documentationRoute } from '@/pages/documentation';
 import { settingsRoute } from '@/pages/settings';
+import { profileRoute } from '@/pages/profile';
 
 export const routes = {
   servers: serversRoute,
@@ -16,5 +17,6 @@ export const routes = {
   // bpm: bpmRoute,
   settings: settingsRoute,
   documentation: documentationRoute,
+  profile: profileRoute,
   notFound: notFoundRoute,
 };

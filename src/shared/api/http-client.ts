@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000';
+import { API_BASE_URL } from '@/shared/config';
 
 const resolveUrl = (url: string): string => {
   if (url.startsWith('http://') || url.startsWith('https://')) {

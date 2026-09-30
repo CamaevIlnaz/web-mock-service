@@ -1,8 +1,11 @@
 import {
+  changePasswordFx,
   loginFx,
   logoutFx,
   meFx,
   registerFx,
+  updateProfileFx,
+  uploadAvatarFx,
 } from './effects';
 import {
   $authStatus,
@@ -36,12 +39,17 @@ export const sessionModel = {
   loginFx,
   registerFx,
   logoutFx,
+  updateProfileFx,
+  changePasswordFx,
+  uploadAvatarFx,
 };
 
 export type {
   AuthStatus,
   AuthUserResponseDto,
   AuthView,
+  ChangePasswordDto,
   LoginDto,
   RegisterPayload,
+  UpdateProfileDto,
 } from './types';

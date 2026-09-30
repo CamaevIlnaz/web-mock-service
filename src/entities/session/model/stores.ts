@@ -1,6 +1,13 @@
 import { combine, createEvent, createStore, sample } from 'effector';
 
-import { loginFx, logoutFx, meFx, registerFx } from './effects';
+import {
+  loginFx,
+  logoutFx,
+  meFx,
+  registerFx,
+  updateProfileFx,
+  uploadAvatarFx,
+} from './effects';
 import type {
   AuthStatus,
   AuthUserResponseDto,
@@ -20,6 +27,8 @@ export const $user = createStore<AuthUserResponseDto | null>(null)
   .on(meFx.doneData, (_, user) => user)
   .on(loginFx.doneData, (_, user) => user)
   .on(registerFx.doneData, (_, user) => user)
+  .on(updateProfileFx.doneData, (_, user) => user)
+  .on(uploadAvatarFx.doneData, (_, user) => user)
   .on(logoutFx.done, () => null)
   .on(meFx.fail, () => null);
 

@@ -6,6 +6,7 @@ import { FilesPage, filesRoute } from './files';
 // import { BpmPage, bpmRoute } from './bpm';
 import { DocumentationPage, documentationRoute } from './documentation';
 import { SettingsPage, settingsRoute } from './settings';
+import { ProfilePage, profileRoute } from './profile';
 import { NotFoundPage, notFoundRoute } from './not-found';
 
 export const routes = [
@@ -49,6 +50,11 @@ export const routes = [
     path: '/documentation',
     route: documentationRoute,
     view: DocumentationPage,
+  },
+  {
+    path: '/profile',
+    route: profileRoute,
+    view: ProfilePage,
   },
 ];
 
