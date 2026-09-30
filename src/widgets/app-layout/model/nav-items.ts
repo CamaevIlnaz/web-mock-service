@@ -4,7 +4,6 @@ import {
   Code2,
   Database,
   File,
-  GitBranch,
   Settings,
 } from 'lucide-react';
 import { type RouteInstance, type RouteParams } from 'atomic-router';
@@ -22,7 +21,8 @@ export const navItems: NavItem[] = [
   { route: routes.servers, label: 'Серверы', icon: Database },
   { route: routes.rules, label: 'Запросы', icon: Code2 },
   { route: routes.files, label: 'Файлы', icon: File },
-  { route: routes.bpm, label: 'BPM-процессы', icon: GitBranch },
+  // TODO: временно скрыто
+  // { route: routes.bpm, label: 'BPM-процессы', icon: GitBranch },
   {
     route: routes.settings,
     label: 'Настройки',
