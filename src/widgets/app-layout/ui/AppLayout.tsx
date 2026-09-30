@@ -9,9 +9,9 @@ type AppLayoutProps = {
 
 export function AppLayout({ children }: AppLayoutProps) {
   return (
-    <Flex minH="100vh" bg="page" fontFamily="body">
+    <Flex h="100vh" bg="page" fontFamily="body" overflow="hidden">
       <Sidebar />
-      <Box as="main" flex="1" overflow="auto" bg="page">
+      <Box as="main" flex="1" minW="0" overflowY="auto" bg="page">
         {children}
       </Box>
     </Flex>
