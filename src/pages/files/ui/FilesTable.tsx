@@ -7,6 +7,8 @@ import type { FilesTableProps } from '../types';
 
 export const FilesTable = ({
   files,
+  selectedFileId = null,
+  onSelect,
   onDownload,
   onDelete,
 }: FilesTableProps) => {
@@ -42,7 +44,13 @@ export const FilesTable = ({
       </Table.Header>
       <Table.Body>
         {files.map((file) => (
-          <Table.Row key={file.id}>
+          <Table.Row
+            key={file.id}
+            bg={selectedFileId === file.id ? 'brandSoft' : undefined}
+            cursor="pointer"
+            onClick={() => onSelect(file)}
+            _hover={selectedFileId === file.id ? undefined : { bg: 'panelAlt' }}
+          >
             <Table.Cell
               borderColor="border"
               py="4"
@@ -85,7 +93,10 @@ export const FilesTable = ({
                   size="xs"
                   color="muted"
                   cursor="pointer"
-                  onClick={() => onDownload(file)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onDownload(file);
+                  }}
                 >
                   <Download size={16} strokeWidth={1.75} />
                 </IconButton>
@@ -95,7 +106,10 @@ export const FilesTable = ({
                   size="xs"
                   color="muted"
                   cursor="pointer"
-                  onClick={() => onDelete(file)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onDelete(file);
+                  }}
                 >
                   <Trash2 size={16} strokeWidth={1.75} />
                 </IconButton>

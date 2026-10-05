@@ -1,3 +1,5 @@
+export const PAGE_SIZE = 20;
+
 export interface FilesTableColumn {
   id: string;
   label: string;

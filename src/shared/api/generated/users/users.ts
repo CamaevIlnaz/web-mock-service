@@ -14,31 +14,6 @@ import type {
 
 import { customFetch } from '../../http-client';
 
-export const getUsersControllerUploadAvatarUrl = () => {
-
-
-
-
-  return `/api/users/me/avatar`
-}
-
-/**
- * @summary Загрузить или заменить аватар
- */
-export const usersControllerUploadAvatar = async (usersControllerUploadAvatarBody: UsersControllerUploadAvatarBody, options?: Parameters<typeof customFetch>[1]): Promise<AuthUserResponseDto> => {
-    const formData = new FormData();
-formData.append(`avatar`, usersControllerUploadAvatarBody.avatar);
-
-  return customFetch<AuthUserResponseDto>(getUsersControllerUploadAvatarUrl(),
-  {
-    ...options,
-    method: 'POST'
-    ,
-    body: formData
-  }
-);}
-
-
 export const getUsersControllerUpdateProfileUrl = () => {
 
 
@@ -109,6 +84,31 @@ return customFetch<void>(getUsersControllerChangePasswordUrl(),
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
     body: JSON.stringify(changePasswordDto)
+  }
+);}
+
+
+export const getUsersControllerUploadAvatarUrl = () => {
+
+
+
+
+  return `/api/users/me/avatar`
+}
+
+/**
+ * @summary Загрузить или заменить аватар
+ */
+export const usersControllerUploadAvatar = async (usersControllerUploadAvatarBody: UsersControllerUploadAvatarBody, options?: Parameters<typeof customFetch>[1]): Promise<AuthUserResponseDto> => {
+    const formData = new FormData();
+formData.append(`avatar`, usersControllerUploadAvatarBody.avatar);
+
+  return customFetch<AuthUserResponseDto>(getUsersControllerUploadAvatarUrl(),
+  {
+    ...options,
+    method: 'POST'
+    ,
+    body: formData
   }
 );}
 

@@ -13,6 +13,7 @@ import type { UpdateMockRuleDtoResponseType } from './updateMockRuleDtoResponseT
 export interface UpdateMockRuleDto {
   name?: string;
   method?: UpdateMockRuleDtoMethod;
+  /** Маска path после /mockapi/{connectionToken}: `:param` — один сегмент, `*` — любой остаток */
   urlMask?: string;
   isEnabled?: boolean;
   /** Меньшее значение — выше приоритет при совпадении масок */

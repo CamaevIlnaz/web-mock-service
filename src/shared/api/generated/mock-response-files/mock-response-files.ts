@@ -6,12 +6,52 @@
  * OpenAPI spec version: 0.1.0
  */
 import type {
-  MockResponseFileMetaDto
+  CopyMockResponseFileDto,
+  MockResponseFileMetaDto,
+  MockResponseFilesControllerFindAllParams,
+  MockResponseFilesControllerUpdateContentBodyOne,
+  MockResponseFilesControllerUpdateContentBodyTwo,
+  MockResponseFilesControllerUploadBody,
+  PaginatedMockResponseFilesResponseDto,
+  UpdateMockResponseFileDto
 } from '../model';
 
 import { customFetch } from '../../http-client';
 
-export const getMockResponseFilesControllerFindAllUrl = (mockServerId: number,) => {
+export const getMockResponseFilesControllerFindAllUrl = (mockServerId: number,
+    params?: MockResponseFilesControllerFindAllParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : String(value))
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `/api/mock-servers/${mockServerId}/response-files?${stringifiedParams}` : `/api/mock-servers/${mockServerId}/response-files`
+}
+
+/**
+ * Пагинация и поиск по названию файла. Сортировка по дате создания (новые сначала).
+ * @summary Список файлов ответов мок-сервера
+ */
+export const mockResponseFilesControllerFindAll = async (mockServerId: number,
+    params?: MockResponseFilesControllerFindAllParams, options?: Parameters<typeof customFetch>[1]): Promise<PaginatedMockResponseFilesResponseDto> => {
+
+  return customFetch<PaginatedMockResponseFilesResponseDto>(getMockResponseFilesControllerFindAllUrl(mockServerId,params),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+export const getMockResponseFilesControllerUploadUrl = (mockServerId: number,) => {
 
 
 
@@ -20,16 +60,153 @@ export const getMockResponseFilesControllerFindAllUrl = (mockServerId: number,) 
 }
 
 /**
- * @summary Список файлов ответов мок-сервера
+ * @summary Загрузить файл ответа (только JSON или PDF, до 5 МБ)
  */
-export const mockResponseFilesControllerFindAll = async (mockServerId: number, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto[]> => {
+export const mockResponseFilesControllerUpload = async (mockServerId: number,
+    mockResponseFilesControllerUploadBody: MockResponseFilesControllerUploadBody, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto> => {
+    const formData = new FormData();
+formData.append(`file`, mockResponseFilesControllerUploadBody.file);
+if(mockResponseFilesControllerUploadBody.originalName !== undefined) {
+ formData.append(`originalName`, mockResponseFilesControllerUploadBody.originalName);
+ }
 
-  return customFetch<MockResponseFileMetaDto[]>(getMockResponseFilesControllerFindAllUrl(mockServerId),
+  return customFetch<MockResponseFileMetaDto>(getMockResponseFilesControllerUploadUrl(mockServerId),
+  {
+    ...options,
+    method: 'POST'
+    ,
+    body: formData
+  }
+);}
+
+
+export const getMockResponseFilesControllerFindOneUrl = (mockServerId: number,
+    fileId: number,) => {
+
+
+
+
+  return `/api/mock-servers/${mockServerId}/response-files/${fileId}`
+}
+
+/**
+ * @summary Получить метаданные файла ответа
+ */
+export const mockResponseFilesControllerFindOne = async (mockServerId: number,
+    fileId: number, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto> => {
+
+  return customFetch<MockResponseFileMetaDto>(getMockResponseFilesControllerFindOneUrl(mockServerId,fileId),
   {
     ...options,
     method: 'GET'
 
 
+  }
+);}
+
+
+export const getMockResponseFilesControllerRenameUrl = (mockServerId: number,
+    fileId: number,) => {
+
+
+
+
+  return `/api/mock-servers/${mockServerId}/response-files/${fileId}`
+}
+
+/**
+ * @summary Переименовать файл ответа (оригинальное название)
+ */
+export const mockResponseFilesControllerRename = async (mockServerId: number,
+    fileId: number,
+    updateMockResponseFileDto: UpdateMockResponseFileDto, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MockResponseFileMetaDto>(getMockResponseFilesControllerRenameUrl(mockServerId,fileId),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(updateMockResponseFileDto)
+  }
+);}
+
+
+export const getMockResponseFilesControllerRemoveUrl = (mockServerId: number,
+    fileId: number,) => {
+
+
+
+
+  return `/api/mock-servers/${mockServerId}/response-files/${fileId}`
+}
+
+/**
+ * @summary Удалить файл ответа (запрещено, если используется правилами)
+ */
+export const mockResponseFilesControllerRemove = async (mockServerId: number,
+    fileId: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+
+  return customFetch<void>(getMockResponseFilesControllerRemoveUrl(mockServerId,fileId),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+export const getMockResponseFilesControllerCopyUrl = (mockServerId: number,
+    fileId: number,) => {
+
+
+
+
+  return `/api/mock-servers/${mockServerId}/response-files/${fileId}/copy`
+}
+
+/**
+ * Копия создаётся в текущем или другом мок-сервере пользователя (targetMockServerId).
+ * @summary Создать копию файла ответа
+ */
+export const mockResponseFilesControllerCopy = async (mockServerId: number,
+    fileId: number,
+    copyMockResponseFileDto: CopyMockResponseFileDto, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<MockResponseFileMetaDto>(getMockResponseFilesControllerCopyUrl(mockServerId,fileId),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(copyMockResponseFileDto)
   }
 );}
 
@@ -59,27 +236,29 @@ export const mockResponseFilesControllerGetContent = async (mockServerId: number
 );}
 
 
-export const getMockResponseFilesControllerRemoveUrl = (mockServerId: number,
+export const getMockResponseFilesControllerUpdateContentUrl = (mockServerId: number,
     fileId: number,) => {
 
 
 
 
-  return `/api/mock-servers/${mockServerId}/response-files/${fileId}`
+  return `/api/mock-servers/${mockServerId}/response-files/${fileId}/content`
 }
 
 /**
- * @summary Удалить файл ответа (запрещено, если используется правилами)
+ * Только для JSON-файлов (PDF редактировать нельзя). Тело — сам JSON (application/json) или multipart с полем file. Изменение сразу применяется ко всем правилам, использующим файл.
+ * @summary Заменить содержимое JSON-файла ответа
  */
-export const mockResponseFilesControllerRemove = async (mockServerId: number,
-    fileId: number, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
+export const mockResponseFilesControllerUpdateContent = async (mockServerId: number,
+    fileId: number,
+    mockResponseFilesControllerUpdateContentBody: MockResponseFilesControllerUpdateContentBodyOne | MockResponseFilesControllerUpdateContentBodyTwo, options?: Parameters<typeof customFetch>[1]): Promise<MockResponseFileMetaDto> => {
 
-  return customFetch<void>(getMockResponseFilesControllerRemoveUrl(mockServerId,fileId),
+  return customFetch<MockResponseFileMetaDto>(getMockResponseFilesControllerUpdateContentUrl(mockServerId,fileId),
   {
     ...options,
-    method: 'DELETE'
-
-
+    method: 'PUT'
+    ,
+    body: JSON.stringify(mockResponseFilesControllerUpdateContentBody)
   }
 );}
 

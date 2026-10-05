@@ -5,11 +5,13 @@
  * API сервиса Smart Mock Proxy: mock-ответы и проксирование на стенды
  * OpenAPI spec version: 0.1.0
  */
+import type { MockResponseFileMetaDtoMimeType } from './mockResponseFileMetaDtoMimeType';
 
 export interface MockResponseFileMetaDto {
   id: number;
   originalName: string;
-  mimeType: string;
+  mimeType: MockResponseFileMetaDtoMimeType;
   sizeBytes: number;
   createdAt: string;
+  updatedAt: string;
 }

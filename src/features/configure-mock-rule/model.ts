@@ -17,6 +17,9 @@ import type {
 
 export type ConfigureMode = 'create' | 'edit';
 
+// Максимальный limit, который принимает API списка файлов
+const FILE_OPTIONS_LIMIT = 100;
+
 export const createOpened = createEvent<{ mockServerId: number }>();
 export const editOpened = createEvent<{
   mockServerId: number;
@@ -134,7 +137,12 @@ const toUpdateDto = (
 
 sample({
   clock: [createOpened, editOpened],
-  fn: (payload) => payload.mockServerId,
+  fn: (payload) => ({
+    mockServerId: payload.mockServerId,
+    page: 1,
+    limit: FILE_OPTIONS_LIMIT,
+    mode: 'replace' as const,
+  }),
   target: mockResponseFileModel.filesRequested,
 });
 
